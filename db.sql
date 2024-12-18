@@ -21,6 +21,8 @@ CREATE TABLE cards_table (
 	card_name varchar(128) not null,
 	card_description text not null,
 	card_price varchar(128) not null,
-	image_id,
 	foreign key (user_id) references users_table (user_id) on delete cascade on update cascade
 );
+
+SELECT * FROM cards_table;
+SELECT * FROM users_table;

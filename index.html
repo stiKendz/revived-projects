@@ -153,8 +153,11 @@
                 <label for="cardPrice">Цена товара:</label>
                 <input type="text" id="cardPrice" placeholder="Введите цену товара" required>
 
-                <label for="cardImageUrl">URL изображения:</label>
-                <input type="text" id="cardImageUrl" placeholder="Введите URL изображения" required>
+                <label for="cardImageUrl">Описание товара:</label>
+                <input type="text" id="cardText" placeholder="Введите краткое описание товара" required>
+
+                <!-- <label for="cardImageUrl">URL изображения:</label>
+                <input type="text" id="cardImageUrl" placeholder="Введите URL изображения" required> -->
 
                 <button id="addCardButton">Добавить карточку</button>
             </div>
@@ -323,64 +326,64 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('modal');
-        const createCardButton = document.getElementById('createCardButton');
-        const closeButton = document.querySelector('.close-button');
-        const addCardButton = document.getElementById('addCardButton');
-        const cardContainer = document.querySelector('.card-container');
+            const modal = document.getElementById('modal');
+            const createCardButton = document.getElementById('createCardButton');
+            const closeButton = document.querySelector('.close-button');
+            const addCardButton = document.getElementById('addCardButton');
+            const cardContainer = document.querySelector('.card-container');
 
-        // Открывает модальное окно для создания карточки
-        createCardButton.addEventListener('click', function() {
-            modal.style.display = 'block';
-        });
-
-        // Закрывает модальное окно
-        closeButton.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-
-        // Закрывает модальное окно при клике вне его
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-        // Добавление карточки
-        addCardButton.addEventListener('click', function() {
-            const title = document.getElementById('cardTitle').value;
-            const price = document.getElementById('cardPrice').value;
-            const imageUrl = document.getElementById('cardImageUrl').value;
-
-            if (title && price && imageUrl) {
-                const newCard = document.createElement('div');
-                newCard.classList.add('card');
-
-                newCard.innerHTML = `
-                    <img src="${imageUrl}" alt="${title}" />
-                    <div class="card-content">
-                        <h3>${title}</h3>
-                        <p class="price">Цена: ${price}₽</p>
-                        <button class="gift-button">Подарить</button>
-                    </div>
-                `;
-
-                cardContainer.appendChild(newCard);
-                modal.style.display = 'none'; // Закрываем модальное окно
-                
-                // Очищаем поля ввода
-                document.getElementById('cardTitle').value = '';
-                document.getElementById('cardPrice').value = '';
-                document.getElementById('cardImageUrl').value = '';
-
-                // Добавляем слушатель событий для новой кнопки "Подарить"
-                const giftButton = newCard.querySelector('.gift-button');
-                giftButton.addEventListener('click', function() {
-                    openPaymentModal(title); // Открываем модальное окно с заголовком товара
-                });
-            } else {
-                alert("Пожалуйста, заполните все поля.");
-            }
+            // Открывает модальное окно для создания карточки
+            createCardButton.addEventListener('click', function() {
+                modal.style.display = 'block';
             });
+
+            // Закрывает модальное окно
+            closeButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Закрывает модальное окно при клике вне его
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            // Добавление карточки
+            // addCardButton.addEventListener('click', function() {
+            //     const title = document.getElementById('cardTitle').value;
+            //     const price = document.getElementById('cardPrice').value;
+            //     const imageUrl = document.getElementById('cardImageUrl').value;
+
+            //     if (title && price && imageUrl) {
+            //         const newCard = document.createElement('div');
+            //         newCard.classList.add('card');
+
+            //         newCard.innerHTML = `
+            //             <img src="${imageUrl}" alt="${title}" />
+            //             <div class="card-content">
+            //                 <h3>${title}</h3>
+            //                 <p class="price">Цена: ${price}₽</p>
+            //                 <button class="gift-button">Подарить</button>
+            //             </div>
+            //             `;
+
+            //         cardContainer.appendChild(newCard);
+            //         modal.style.display = 'none'; // Закрываем модальное окно
+                        
+            //         // Очищаем поля ввода
+            //         document.getElementById('cardTitle').value = '';
+            //         document.getElementById('cardPrice').value = '';
+            //         document.getElementById('cardImageUrl').value = '';
+
+            //         // Добавляем слушатель событий для новой кнопки "Подарить"
+            //         const giftButton = newCard.querySelector('.gift-button');
+            //         giftButton.addEventListener('click', function() {
+            //             openPaymentModal(title); // Открываем модальное окно с заголовком товара
+            //         });
+            //     } else {
+            //         alert("Пожалуйста, заполните все поля.");
+            //     }
+            // });
         });
         // Функция для открытия модального окна оплаты
         function openPaymentModal(title) {
