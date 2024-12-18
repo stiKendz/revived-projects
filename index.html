@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>WeddingBox - свадебная копилка</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="Логотип" />
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    
+                    <li><a href="#contact">Контакты</a></li>
+                    <li><a href="#" id="openAuthModal">Вход</a></li>
+                    <li id="userProfile" style="display:none;">
+                        <a href="#profile">Профиль</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="social-links">
+                <a href="#" class="social-icon">
+                    <img src="facebook.png" alt="Facebook" />
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="instagram.png" alt="Instagram" />
+                </a>
+                <a href="#" class="social-icon">
+                    <img src="twitter.png" alt="Twitter" />
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="container" id="profile" style="display:none;">
+        <h2>Профиль пользователя</h2>
+        <p>Добро пожаловать, <span id="profileUsername"></span>!</p>
+        <label for="fullName">Полное имя:</label>
+        <input type="text" id="fullName" placeholder="Введите ваше полное имя">
+        <br><br>
+        <label for="email">Электронная почта:</label>
+        <input type="email" id="email" placeholder="Введите вашу электронную почту">
+        <br><br>
+        <label for="bio">О себе:</label>
+        <textarea id="bio" placeholder="Напишите о себе"></textarea>
+        <br><br>
+        <button id="saveProfile">Сохранить профиль</button>
+        <button id="logoutButton">Выйти</button>
+    </div>
+    <section>
+        <div class="content">
+            <div class="text-block">
+                <p class="text-black1">Молодые копят,</p>
+                <p class="text-pink"> а ты им помогаешь</p>
+                <p class="text-black">делать покупки  </p>
+                <p class="text-pink2">с WeddingBox!</p>
+                <a href="" class="start-button">Начать</a>
+            </div>
+            <div class="image-block">
+                <div class="circle"></div>  
+                <img src="output-onlinegiftools.gif" 
+                    height="200px"
+                    width="200px"/>
+                </div>
+            </div>
+        <hr class="divider">
+        <div class="description">
+            <h2>WeddingBox</h2>
+            <p class="ds1">Простой сервис, чтобы накопить деньги </p>
+            <p class="ds2">и</p>
+            <p class="ds3">воплотить свою мечту в жизнь!</p>
+        </div>
+        <hr class="divider">
+        <div id="about" class="additional-content">
+            <div class="image-float-block">
+                <img src="bag.gif" alt="Floating Image" />
+            </div>
+            <div class="circle2">
+
+            </div>
+            <div class="text-float-block">
+                <p>Мы создали понятный и лёгкий сервис в использовании и добавили в него самое необходимое, чтобы любой человек мог быстрее достигать желаемого благодаря накоплениям.</p>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="user-section"></div>
+        <p class="text-pink centered-text">Пользователи WeddingBox собирают на:</p>
+            <div class="image-grid">
+                <div class="image-item">
+                    <a href="your-link-here.html"></a>
+                    <img src="phone.gif" alt="Смартфоны" />
+                    <p>Смартфоны</p>
+                </div>
+                <div class="image-item">
+                    <img src="car.gif" alt="Личный транспорт" />
+                    <p>Личный транспорт</p>
+                </div>
+                <div class="image-item">
+                    <img src="plane.gif" alt="Путешествия" />
+                    <p>Путешествия</p>
+                </div>
+                <div class="image-item">
+                    <img src="other.gif" alt="Другое" />
+                    <p>Другое</p>
+                </div>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="middle-text">
+            <h2>Функционал продуман, чтобы вам было комфортно собирать</h2>
+        </div>
+
+        <div  id="services" class="features">
+            <div class="feature">
+                <img src="click.gif" alt="Отмечай свою цель" />
+                <h3>Отмечай свою цель</h3>
+            </div>
+            <div class="feature">
+                <img src="notes.gif" alt="Введите подробное описание" />
+                <h3>Вводи подробное описание</h3>
+            </div>
+            <div class="feature">
+                <img src="subm.gif" alt="Добавляй что хочешь" />
+                <h3>Добавляй что хочешь</h3>
+            </div>
+            <div class="feature">
+                <img src="rec.gif" alt="Деньги будут собираться" />
+                <h3>Собирай деньги и наблюдай за процессом</h3>
+            </div>
+        </div>
+        
+
+        <div id="catalog" class="catalog">
+            <h2>Каталог WeddingBox</h2>
+            <button id="createCardButton" class="create-card-button">Создать карточку</button>
+            <div class="card-container">
+                <!-- Ваши карточки -->
+            </div>
+        </div>
+        <!-- Модальное окно -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Создать карточку</h2>
+                <label for="cardTitle">Название товара:</label>
+                <input type="text" id="cardTitle" placeholder="Введите название товара" required>
+                
+                <label for="cardPrice">Цена товара:</label>
+                <input type="text" id="cardPrice" placeholder="Введите цену товара" required>
+
+                <label for="cardImageUrl">URL изображения:</label>
+                <input type="text" id="cardImageUrl" placeholder="Введите URL изображения" required>
+
+                <button id="addCardButton">Добавить карточку</button>
+            </div>
+        </div>
+        <div id="paymentModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>Оплата товара</h2>
+                <form id="paymentForm">
+                    <label for="cardholderName">ФИО владельца карты:</label>
+                    <input type="text" id="cardholderName" placeholder="Введите ваше имя" required>
+                    <br><br>
+                    <label for="cardNumber">Номер карты:</label>
+                    <input type="text" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" required pattern="\d{4}-\d{4}-\d{4}-\d{4}">
+                    <br><br>
+                    <label for="expiryDate">Срок действия:</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                    <br><br>
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" placeholder="XXX" required pattern="\d{3}">
+                    <br><br>
+                    <button type="submit">Подтвердить оплату</button>
+                </form>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="son">
+            <div class="container">
+                <div class="left">
+                <div class="img"> </div>
+                <div class="info">
+                <ul>
+                    <li></li>
+                    <li>Сбор</li>
+                    <li>$500</li>
+                </ul>
+                <ul>
+                    <li>времени осталось</li>
+                    <li>25 дней</li>
+                    <li>Требуется собрать</li>
+                    <li>$50000</li>
+                </ul>
+                </div>
+                <div class="circle4">
+                    <div class="circle5">
+                    <span>Собрано</span>
+                    <span>49,8%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="up">
+                    <ul>
+                        <li><h3>Закидывай молодым монету</h3></li>
+                        <li>Заполни поля ниже </li>
+                    </ul>
+                </div>
+                <div class="down">
+                    <div class="payment">
+                        <form>
+                            <div class="form-group">
+                                <label class="cardNumber">Номер карты</label>
+                                <input type="number" class="form-control1">
+                            </div>
+                            <div class="form-group1" id="expiration-date">
+                                <div class="lab">
+                                    <label>Дата выпуска</label>
+                                    <select>
+                                        <option value="01">Январь</option>
+                                        <option value="02">Февраль </option>
+                                        <option value="03">Март</option>
+                                        <option value="04">Апрель</option>
+                                        <option value="05">Май</option>
+                                        <option value="06">Июнь</option>
+                                        <option value="07">Июль</option>
+                                        <option value="08">Август</option>
+                                        <option value="09">Сентябрь</option>
+                                        <option value="10">Октябрь</option>
+                                        <option value="11">Ноябрь</option>
+                                        <option value="12">Декабрьr</option>
+                                    </select>
+                                    <select class="year">
+                                        <option value="16"> 2016</option>
+                                        <option value="17"> 2017</option>
+                                        <option value="18"> 2018</option>
+                                        <option value="19"> 2019</option>
+                                        <option value="20"> 2020</option>
+                                        <option value="21"> 2021</option>
+                                        <option value="21"> 2022</option>
+                                        <option value="21"> 2023</option>
+                                        <option value="21"> 2024</option>   
+                                    </select>
+                                </div>
+                                <div class="form-group CVV">
+                                    <label for="cvv">CVV</label>
+                                    <input type="number" class="form-control" id="cvv">
+                                </div>
+                            </div>
+                            <div class="form-group btn" id="pay-now">
+                                <button type="submit" class="btn btn-default" id="confirm-purchase">Donate</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+    <footer>
+        <div id="contact" class="footer-container">
+            <div class="footer-info">
+                <h2>Свадебная Копилка</h2>
+                <p>Помогаем молодым делать важные покупки с WeddingBox.</p>
+                <p>&copy; 2024. Все права защищены.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Полезные ссылки</h3>
+                <ul>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Следите за нами</h3>
+                <div class="social-links">
+                    <a href="#">
+                        <img src="facebook.png" alt="Facebook"/>
+                    </a>
+                    <a href="#">
+                        <img src="instagram.png" alt="Instagram"/>
+                    </a>
+                    <a href="#">
+                        <img src="twitter.png" alt="Twitter"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Окно входа -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Вход</h2>
+            <form id="authForm">
+                <input type="text" id="username" placeholder="Email пользователя" required autocomplete="off">
+                <input type="password" id="password" placeholder="Пароль" required autocomplete="off">
+                <button type="submit">Подтвердить</button>
+                <p id="toggleAuthText">У вас нет аккаунта? <a href="#" id="toggleToRegister">Зарегистрироваться</a></p>
+            </form>
+        </div>
+    </div>
+    <!-- Окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <input type="text" id="regUsername" placeholder="Имя пользователя" required autocomplete="off">
+                <input type="email" id="regEmail" placeholder="Email" required autocomplete="off">
+                <input type="password" id="regPassword" placeholder="Пароль" required autocomplete="off">
+                <button type="submit" id="submitRegistration">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modal');
+        const createCardButton = document.getElementById('createCardButton');
+        const closeButton = document.querySelector('.close-button');
+        const addCardButton = document.getElementById('addCardButton');
+        const cardContainer = document.querySelector('.card-container');
+
+        // Открывает модальное окно для создания карточки
+        createCardButton.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+
+        // Закрывает модальное окно
+        closeButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Закрывает модальное окно при клике вне его
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        // Добавление карточки
+        addCardButton.addEventListener('click', function() {
+            const title = document.getElementById('cardTitle').value;
+            const price = document.getElementById('cardPrice').value;
+            const imageUrl = document.getElementById('cardImageUrl').value;
+
+            if (title && price && imageUrl) {
+                const newCard = document.createElement('div');
+                newCard.classList.add('card');
+
+                newCard.innerHTML = `
+                    <img src="${imageUrl}" alt="${title}" />
+                    <div class="card-content">
+                        <h3>${title}</h3>
+                        <p class="price">Цена: ${price}₽</p>
+                        <button class="gift-button">Подарить</button>
+                    </div>
+                `;
+
+                cardContainer.appendChild(newCard);
+                modal.style.display = 'none'; // Закрываем модальное окно
+                
+                // Очищаем поля ввода
+                document.getElementById('cardTitle').value = '';
+                document.getElementById('cardPrice').value = '';
+                document.getElementById('cardImageUrl').value = '';
+
+                // Добавляем слушатель событий для новой кнопки "Подарить"
+                const giftButton = newCard.querySelector('.gift-button');
+                giftButton.addEventListener('click', function() {
+                    openPaymentModal(title); // Открываем модальное окно с заголовком товара
+                });
+            } else {
+                alert("Пожалуйста, заполните все поля.");
+            }
+            });
+        });
+        // Функция для открытия модального окна оплаты
+        function openPaymentModal(title) {
+            const modal = document.getElementById('paymentModal');
+            document.getElementById('paymentForm').onsubmit = function(event) {
+                event.preventDefault(); // Предотвращаем отправку формы
+                alert(`Оплата за "${title}" подтверждена!`); // Сообщение об успешной оплате
+                modal.style.display = "none"; // Закрыть модальное окно после подтверждения
+            };
+            modal.style.display = "block"; // Открыть модальное окно
+
+            // Закрытие модального окна при нажатии на крестик
+            document.querySelector('.close-button').onclick = function() {
+                modal.style.display = "none"; // Закрыть модальное окно
+            };
+
+            // Закрытие модального окна при клике вне его
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none"; // Закрытие окна
+                }
+            };
+        };
+
+        const modal = document.getElementById("paymentModal");
+        const btn = document.getElementById("giftButton");
+        const btn2 = document.getElementById("giftButton2");
+        const btn3 = document.getElementById("giftButton3");
+        const btn4 = document.getElementById("giftButton4");
+        const span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        btn2.onclick = function() {
+            modal.style.display = "block";
+        }
+        btn3.onclick = function() {
+            modal.style.display = "block";
+        }
+        btn4.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
