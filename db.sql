@@ -15,10 +15,12 @@ CREATE TABLE roles_table (
 	foreign key (user_id) references users_table (user_id) on delete cascade on update cascade
 );
 
-CREATE TABLE user_cards (
+CREATE TABLE cards_table (
 	card_id serial primary key,
 	user_id int not null,
 	card_name varchar(128) not null,
-	card_description text null,
+	card_description text not null,
+	card_price varchar(128) not null,
+	image_id,
 	foreign key (user_id) references users_table (user_id) on delete cascade on update cascade
 );

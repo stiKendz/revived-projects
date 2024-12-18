@@ -7,11 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerModal = document.getElementById('registerModal');
     const toggleToRegisterButton = document.getElementById('toggleToRegister');
     const closeRegisterModalButton = registerModal.querySelector('.close');
-    
-   
 
-    // Открытие и закрытие модальных окон
-    
+    // Открытие и закрытие модальных окон    
     openAuthModalButtons.forEach(button => {
         button.onclick = () => {
             authModal.style.display = 'block';
@@ -32,21 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     closeRegisterModalButton.onclick = () => {
         registerModal.style.display = 'none';
     };
-
-    // // Простой фейковый вход и регистрация
-    // document.getElementById('authForm').addEventListener('submit', function(event) {
-    //     event.preventDefault();
-    //     const username = document.getElementById('username').value;
-    //     const password = document.getElementById('password').value;
-
-    //     if (username && password) {
-    //         // Логика проверки данных
-    //         alert(`Вход как: ${username}`);
-    //         authModal.style.display = 'none';
-    //     } else {
-    //         alert('Пожалуйста, заполните все поля.');
-    //     }
-    // });
 
     document.getElementById('submitRegistration').addEventListener('click', async function(event) {
         event.preventDefault();
@@ -97,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.localStorage.setItem('token', data.token);
             window.localStorage.setItem('email', data.email);
             window.localStorage.setItem('role', data.role);
+
+            visibleCatalogue();
         } else {
             alert('Ошибка при входе в аккаунт');
         }
@@ -111,15 +95,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 }); 
+
 document.getElementById('openAuthModal').addEventListener('click', function() {
     document.getElementById('authModal').style.display = 'block';
 });
 
+// кнопка выхода из аккаунта
 document.getElementById('logoutButton').addEventListener('click', function() {
     document.getElementById('userProfile').style.display = 'none';
     document.getElementById('profile').style.display = 'none';
-    // Добавьте логику для выхода из системы
+
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('email');
+    window.localStorage.removeItem('role');
+    visibleCatalogue();
+
+    alert('Вы успешно вышли из аккаунта');
 });
+
 
 // Пример функции для успешного входа
 function onLoginSuccess(username) {
@@ -139,11 +132,29 @@ document.getElementById('userProfile').addEventListener('click', function() {
 });
 
 
-    // Закрытие модальных окон при нажатии вне их
-    window.onclick = function(event) {
-        if ( event.target == authModal || event.target == registerModal) {
-            authModal.style.display = 'none';
-            registerModal.style.display = 'none';
-        }
-    };
+// Закрытие модальных окон при нажатии вне их
+window.onclick = function(event) {
+    if ( event.target == authModal || event.target == registerModal) {
+        authModal.style.display = 'none';
+        registerModal.style.display = 'none';
+    }
+};
+
+// отображение каталога
+const visibleCatalogue = () => {
+    const token = window.localStorage.getItem('token');
+    const catalogue = document.getElementById('catalog');
+    const navCatalogue = document.getElementById('nav-catalog');
+
+    if (token && token !== 'undefined') {
+        catalogue ? catalogue.style.display = 'block' : null;
+        navCatalogue ? navCatalogue.style.display = 'block' : null;
+    } else {
+        catalogue ? catalogue.style.display = 'none' : null;
+        navCatalogue ? navCatalogue.style.display = 'none' : null;
+    }
+}
+
+window.addEventListener('DOMContentLoaded', visibleCatalogue)
+
 

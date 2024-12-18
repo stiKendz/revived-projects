@@ -149,3 +149,45 @@ app.post('/login', async (req, res) => {
         res.status(500).send('Ошибка входа в аккаунт пользователя из-за ошибки на сервере или в базе данных'); 
     }
 });
+
+// Добавление новой карточки
+app.post('/addcard', async (req, res) => {
+    const { card_name, card_description, card_price } = req.body;
+
+    if ( !card_name || !card_description || !card_price ) {
+        return res.status(400).json({message: 'Все поля должны быть заполнены'});
+    };
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const exitingCard = await client.query(
+                'SELECT * FROM cards_table WHERE card_name = $1', [card_name]
+            )
+            if (exitingCard.rowCount > 0) {
+                return res.status(400).json({message: `Карточка с таким названием уже существует: ${card_name}`})
+            }
+
+            const result = await client.query(
+                'INSERT INTO cards_table ( card_name, card_description, car_price ) VALUES ($1, $2, $3) RETURNING card_name',
+                [card_name, card_description, card_price]
+            );
+            const cardName = result.rows[0].card_name;
+            const cardPrice = result.rows[0].card_price;
+    
+            res.status(201).json({ 
+                message: 'Карточка успешно добавлена',
+                cardName: cardName,
+                cardPrice: cardPrice 
+            });
+
+        } catch(err) {
+            console.error('Ошибка в регистрации пользователя из-за ошибки в запросе' + err);
+            res.status(500).send('Ошибка в регистрации пользователя из-за ошибки в запросе');
+        }
+    } catch (error) {
+        console.error('Ошибка в регистрации пользователя из-за ошибки на сервере или в базе данных' + error);
+        res.status(500).send('Ошибка в регистрации пользователя из-за ошибки на сервере или в базе данных');
+    }
+});
