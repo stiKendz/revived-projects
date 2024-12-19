@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.localStorage.setItem('email', data.email);
             window.localStorage.setItem('role', data.role);
 
-            visibleCatalogue();
+            
         } else {
             alert('Ошибка при входе в аккаунт');
         }
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('email');
         window.localStorage.removeItem('role');
-        visibleCatalogue();
+        
     
         alert('Вы успешно вышли из аккаунта');
     });
@@ -133,7 +133,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(data);
     });
-    
+
+    // просмотр всех карточек
+    document.getElementById('showCardButton').addEventListener('click', async () => {
+        const cardsContainer = document.querySelector('.card-container');
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('http://localhost:5000/getcards', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+
+        if(data && data.cards && data.cards.length > 0) {
+            cardsContainer.innerHTML = '';
+
+            data.cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+
+                cardElement.innerHTML = `
+                    <h3>Название: ${card.card_name}</h3>
+                    <p>Описание: ${card.card_description}</p>
+                    <p>Цена: ${card.card_price}.p</p>
+                `;
+                cardsContainer.appendChild(cardElement);
+            });
+        } else {
+            cardsContainer.innerHTML = `<p>Нет доступных карточек.</p>`;
+        }
+        
+        console.log(data);
+    });
     
     // Пример функции для успешного входа
     function onLoginSuccess(username) {
@@ -160,25 +194,36 @@ document.addEventListener('DOMContentLoaded', () => {
             registerModal.style.display = 'none';
         }
     };
-    
-    // отображение каталога
-    const visibleCatalogue = () => {
-        const token = window.localStorage.getItem('token');
-        const catalogue = document.getElementById('catalog');
-        const navCatalogue = document.getElementById('nav-catalog');
-    
-        if (token && token !== 'undefined') {
-            catalogue ? catalogue.style.display = 'block' : null;
-            navCatalogue ? navCatalogue.style.display = 'block' : null;
-        } else {
-            catalogue ? catalogue.style.display = 'none' : null;
-            navCatalogue ? navCatalogue.style.display = 'none' : null;
-        }
-    }
-    
-    window.addEventListener('DOMContentLoaded', visibleCatalogue)
 }); 
 
+// отображение каталога, профиля пользователя
+const checkAuthorize = () => {
+    const logoutButton = document.getElementById('logoutButton');
+    const logInButton = document.getElementById('log-in-button');
+
+    const token = window.localStorage.getItem('token');
+    const catalogue = document.getElementById('catalog');
+    const navCatalogue = document.getElementById('nav-catalog');
+    const profileWindow = document.getElementById('profile');
+    
+    if (token && token !== 'undefined') {
+        catalogue ? catalogue.style.display = 'block' : null;
+        navCatalogue ? navCatalogue.style.display = 'block' : null;
+        profileWindow ? profileWindow.style.display = 'block': null;
+    } else {
+        catalogue ? catalogue.style.display = 'none' : null;
+        navCatalogue ? navCatalogue.style.display = 'none' : null;
+        profileWindow ? profileWindow.style.display = 'none': null;
+    }
+    
+    logoutButton.addEventListener('click', () => {
+        window.location.reload()
+    });
+    logInButton.addEventListener('click', () => {
+        setTimeout(() => window.location.reload(), 1000)
+    });
+}   
+window.addEventListener('DOMContentLoaded', checkAuthorize)
 
 
 

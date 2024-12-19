@@ -138,9 +138,10 @@
         <div id="catalog" class="catalog">
             <h2>Каталог WeddingBox</h2>
             <button id="createCardButton" class="create-card-button">Создать карточку</button>
-            <div class="card-container">
+            <button id="showCardButton" class="show-card-button">Показать карточки</button>
+            <pre class="card-container">
                 <!-- Ваши карточки -->
-            </div>
+            </pre>
         </div>
         <!-- Модальное окно -->
         <div id="modal" class="modal">
@@ -305,7 +306,7 @@
             <form id="authForm">
                 <input type="text" id="username" placeholder="Email пользователя" required autocomplete="off">
                 <input type="password" id="password" placeholder="Пароль" required autocomplete="off">
-                <button type="submit">Подтвердить</button>
+                <button id="log-in-button" type="submit">Подтвердить</button>
                 <p id="toggleAuthText">У вас нет аккаунта? <a href="#" id="toggleToRegister">Зарегистрироваться</a></p>
             </form>
         </div>
@@ -385,7 +386,7 @@
             //     }
             // });
         });
-        // Функция для открытия модального окна оплаты
+        // Модальное окно оплаты
         function openPaymentModal(title) {
             const modal = document.getElementById('paymentModal');
             document.getElementById('paymentForm').onsubmit = function(event) {

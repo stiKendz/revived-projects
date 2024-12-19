@@ -200,31 +200,32 @@ app.post('/addcard', async (req, res) => {
     }
 });
 
-// Вывод всез карточек пользователя
+// Вывод всех карточек пользователя
 app.get('/getcards', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     if(!token) {
-        return res.status(401).json({messahe: 'Для данного действия требуется авторизация'})
+        return res.status(401).json({message: 'Для данного действия требуется авторизация'})
     }
 
     try {
         const client = await pool.connect();
 
         try {
-            const decodedToken = JsonWebTokenError.verify(token, SECRET_KEY);
-            const userId = decodedToken.user_id;
+            const decodedToken = jwt.verify(token, SECRET_KEY);
+            const userId = decodedToken.userId;
 
-            const result = await client.query(
+            const response = await client.query(
                 'SELECT * FROM cards_table WHERE user_id = $1', [userId]
             )
+            const result = response.rows;
 
             res.status(201).json({
                 message: 'Просмотрите свои карточки', 
-                cards: result.rows
+                cards: result
             });
         } catch (err) {
-            console.error('Ошибка при выводе всез карточек пользователя из-за ошибки в запросе' + err);
+            console.error('Ошибка при выводе всех карточек пользователя из-за ошибки в запросе' + err);
             res.status(500).send('Ошибка при выводе всез карточек пользователя из-за ошибки в запросе');
         }
     } catch (err) {
