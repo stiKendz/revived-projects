@@ -88,6 +88,47 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(data);
     });
     
+    // Просмотр и редактирование профиля пользователя
+    const profileContainer = document.getElementById('profile');
+    async function loadProfile(){
+        const name = document.querySelector('.user-name-output');
+        const surname = document.querySelector('.user-surname-output');
+        const email = document.querySelector('.user-email-output');
+        const about_user = document.querySelector('.about-me-output');
+        const phone_number = document.querySelector('.phone-number-output');
+        const usernameSpan = document.getElementById('profileUsername');
+
+        const token = window.localStorage.getItem('token');
+
+        const response = await fetch('http://localhost:5000/userinfo', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await response.json();
+
+        if(data && data.userInfo && data.userInfo.length) {
+            const userInfo = data.userInfo[0];
+
+            usernameSpan.textContent = userInfo.name ?? 'Нет данных';
+
+            name.innerHTML = `Имя: <p>${userInfo.name ?? 'Нет данных'}</p>`;
+            surname.innerHTML = `Фамилия: <p>${userInfo.surname ?? 'Нет данных'}</p>`;
+            email.innerHTML = `Адрес электронной почты: <p>${userInfo.email ?? 'Нет данных'}</p>`;
+            about_user.innerHTML = `Обо мне: <p>${userInfo.about_user ?? 'Нет данных'}</p>`;
+            phone_number.innerHTML = `Номер телефона: <p>${userInfo.phone_number ?? 'Нет данных'}</p>`;
+
+            // name.value = data.name || '';
+            // surname.value = data.surname || '';
+            // email.value = data.email || '';
+            // about_user.value = data.about_user || '';
+            // phone_number.value = data.phone_number || '';
+        } 
+        console.log(data);
+    }
+
     window.onclick = function(event) {
         if ( event.target == authModal || event.target == registerModal) {
             authModal.style.display = 'none';
@@ -194,36 +235,39 @@ document.addEventListener('DOMContentLoaded', () => {
             registerModal.style.display = 'none';
         }
     };
+
+    // отображение каталога, профиля пользователя
+    const checkAuthorize = () => {
+        const logoutButton = document.getElementById('logoutButton');
+        const logInButton = document.getElementById('log-in-button');
+
+        const token = window.localStorage.getItem('token');
+        const catalogue = document.getElementById('catalog');
+        const navCatalogue = document.getElementById('nav-catalog');
+        const profileWindow = document.getElementById('profile');
+        
+        if (token && token !== 'undefined') {
+            catalogue ? catalogue.style.display = 'block' : null;
+            navCatalogue ? navCatalogue.style.display = 'block' : null;
+            profileWindow ? profileWindow.style.display = 'block': null;
+
+            loadProfile();
+        } else {
+            catalogue ? catalogue.style.display = 'none' : null;
+            navCatalogue ? navCatalogue.style.display = 'none' : null;
+            profileWindow ? profileWindow.style.display = 'none': null;
+        }
+        
+        logoutButton.addEventListener('click', () => {
+            window.location.reload()
+        });
+        logInButton.addEventListener('click', () => {
+            setTimeout(() => window.location.reload(), 1000)
+        });
+    }   
+    window.addEventListener('DOMContentLoaded', checkAuthorize)
 }); 
 
-// отображение каталога, профиля пользователя
-const checkAuthorize = () => {
-    const logoutButton = document.getElementById('logoutButton');
-    const logInButton = document.getElementById('log-in-button');
-
-    const token = window.localStorage.getItem('token');
-    const catalogue = document.getElementById('catalog');
-    const navCatalogue = document.getElementById('nav-catalog');
-    const profileWindow = document.getElementById('profile');
-    
-    if (token && token !== 'undefined') {
-        catalogue ? catalogue.style.display = 'block' : null;
-        navCatalogue ? navCatalogue.style.display = 'block' : null;
-        profileWindow ? profileWindow.style.display = 'block': null;
-    } else {
-        catalogue ? catalogue.style.display = 'none' : null;
-        navCatalogue ? navCatalogue.style.display = 'none' : null;
-        profileWindow ? profileWindow.style.display = 'none': null;
-    }
-    
-    logoutButton.addEventListener('click', () => {
-        window.location.reload()
-    });
-    logInButton.addEventListener('click', () => {
-        setTimeout(() => window.location.reload(), 1000)
-    });
-}   
-window.addEventListener('DOMContentLoaded', checkAuthorize)
 
 
 

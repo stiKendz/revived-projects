@@ -150,6 +150,40 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// вывод информации о пользователе
+app.get('/userinfo', async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    if(!token) {
+        return res.status(401).json({message: 'Вы не авторизованы'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const decodedToken = jwt.verify(token, SECRET_KEY);
+            const userId = decodedToken.userId;
+
+            const response = await client.query(
+                'SELECT * FROM users_table where user_id = $1', [userId]
+            )
+            const result = response.rows;
+
+            res.status(201).json({
+                message: 'Информация о пользователе',
+                userInfo: result
+            });
+        } catch (err) {
+            console.error('Ошибка вывода информации о пользователе из-за ошибки в запросе' + err);
+            res.status(500).send('Ошибка вывода информации о пользователе из-за ошибки в запросе');
+        }
+    } catch (err) {
+        console.error('Ошибка вывода информации о пользователе из-за ошибки на сервере или в базе данных' + err);
+        res.status(500).send('Ошибка вывода информации о пользователе из-за ошибки на сервере или в базе данных'); 
+    }
+});
+
 // Добавление новой карточки
 app.post('/addcard', async (req, res) => {
     const { card_name, card_description, card_price } = req.body;
