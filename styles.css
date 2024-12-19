@@ -19,6 +19,28 @@ body {
     }
 }
 
+/* Кнопки в меню навигации */
+button.in-nav {
+  border-radius: 0;
+
+  background-color: transparent;
+
+  font-size: 16px;
+  font-weight: 900;
+
+  color: #FF5C69;
+
+  outline: #FF5C69;
+}
+button.in-nav:hover, 
+button.in-nav:focus{
+  background-color: transparent;
+  color: #FFDBA8;
+
+  outline: 4px solid #FFDBA8;
+  transition: 0.15s ease-in;
+}
+
 header {
     position: fixed; 
     top: 0; 

@@ -8,84 +8,96 @@
     const toggleToRegisterButton = document.getElementById('toggleToRegister');
     const closeRegisterModalButton = registerModal.querySelector('.close');
 
-    // Открытие и закрытие модальных окон    
-    openAuthModalButtons.forEach(button => {
-        button.onclick = () => {
-            authModal.style.display = 'block';
-            registerModal.style.display = 'none'; // Закрыть окно регистрации при открытии входа
-        };
-    });
+    const loginButton = document.getElementById('log-in-button');
 
-    closeAuthModalButton.onclick = () => {
-        authModal.style.display = 'none';
-    };
+    const submitRegistration = document.getElementById('submitRegistration');
 
-    toggleToRegisterButton.onclick = (e) => {
-        e.preventDefault();
-        authModal.style.display = 'none'; // Закрыть окно входа
-        registerModal.style.display = 'block'; // Открыть окно регистрации
-    };
+    const openAuthModal = document.getElementById('openAuthModal');
+    const userProfile = document.getElementById('userProfile');
+    const addCardButton = document.getElementById('addCardButton');
+
+    // // Открытие и закрытие модальных окон    
+    // openAuthModalButtons.forEach(button => {
+    //     button.onclick = () => {
+    //         authModal.style.display = 'block';
+    //         registerModal.style.display = 'none'; // Закрыть окно регистрации при открытии входа
+    //     };
+    // });
+
+    // closeAuthModalButton.onclick = () => {
+    //     authModal.style.display = 'none';
+    // };
+
+    // toggleToRegisterButton.onclick = (e) => {
+    //     e.preventDefault();
+    //     authModal.style.display = 'none'; // Закрыть окно входа
+    //     registerModal.style.display = 'block'; // Открыть окно регистрации
+    // };
 
     closeRegisterModalButton.onclick = () => {
         registerModal.style.display = 'none';
     };
 
-    document.getElementById('submitRegistration').addEventListener('click', async function(event) {
-        event.preventDefault();
-        const name = document.getElementById('regUsername').value;
-        const email = document.getElementById('regEmail').value;
-        const password = document.getElementById('regPassword').value;
-
-        const response = await fetch('http://localhost:5000/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({name, email, password})
+    // регистрация
+    if (submitRegistration) {
+        submitRegistration.addEventListener('click', async function(event) {
+            event.preventDefault();
+            const name = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+    
+            const response = await fetch('http://localhost:5000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, email, password})
+            });
+            const data = await response.json();
+                
+            if (response.ok) {
+                alert('Вы успешно зарегистрировались');
+                registerModal.style.display = 'none';
+            } else {
+                alert('Ошибка при регистрации')
+            }
+    
+            console.log(data);
         });
-        const data = await response.json();
-            
-        if (response.ok) {
-            alert('Вы успешно зарегистрировались');
-            registerModal.style.display = 'none';
-        } else {
-            alert('Ошибка при регистрации')
-        }
-
-        console.log(data);
-    });
+    }
     
     // Вход
-      document.getElementById('authForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const email = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    if (loginButton) {
+        loginButton.addEventListener('click', async () => {
+            const email = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+        
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, password})
+            });
+            const data = await response.json();
+                
+            if (response.ok) {
+                alert('Вы успешно вошли в аккаунт');
+                authModal.style.display = 'none';
+                openAuthModal ? authModal.style.display = 'none' : null; // Скрыть кнопку входа
+                userProfile ? userProfile.style.display = 'block' : null; // Показать профиль
     
-        const response = await fetch('http://localhost:5000/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email, password})
+                window.localStorage.setItem('token', data.token);
+                window.localStorage.setItem('email', data.email);
+                window.localStorage.setItem('role', data.role);
+            } else {
+                alert('Ошибка при входе в аккаунт');
+            }
+    
+            console.log(data);
         });
-        const data = await response.json();
-            
-        if (response.ok) {
-            alert('Вы успешно вошли в аккаунт');
-            authModal.style.display = 'none';
-            document.getElementById('openAuthModal').style.display = 'none'; // Скрыть кнопку входа
-            document.getElementById('userProfile').style.display = 'block'; // Показать профиль
-
-            window.localStorage.setItem('token', data.token);
-            window.localStorage.setItem('email', data.email);
-            window.localStorage.setItem('role', data.role);
-        } else {
-            alert('Ошибка при входе в аккаунт');
-        }
-
-        console.log(data);
-    });
-    
+    }
+   
     // Просмотр профиля пользователя
     const profileContainer = document.getElementById('profile');
     async function loadProfile(){
@@ -111,60 +123,63 @@
             const userInfo = data.userInfo[0];
 
             usernameSpan.textContent = userInfo.name ?? 'Нет данных';
+    
+            // Заполнение меток
+            name.innerHTML = `Имя: <p>${userInfo.name || 'Нет данных'}</p>`;
+            surname.innerHTML = `Фамилия: <p>${userInfo.surname || 'Нет данных'}</p>`;
+            email.innerHTML = `Адрес электронной почты: <p>${userInfo.email || 'Нет данных'}</p>`;
+            about_user.innerHTML = `Обо мне: <p>${userInfo.about_user || 'Нет данных'}</p>`;
+            phone_number.innerHTML = `Номер телефона: <p>${userInfo.phone_number || 'Нет данных'}</p>`;
+    
+            // Заполнение input'ов, если они пустые
+            const nameInput = document.getElementById('user-name');
+            const surnameInput = document.getElementById('user-surname');
+            const emailInput = document.getElementById('user-email');
+            const aboutUserInput = document.getElementById('about-me');
+            const phoneNumberInput = document.getElementById('phone-number');
+    
+            // Заполнение полей ввода
+            nameInput.value = nameInput.value || userInfo.name || '';
+            surnameInput.value = surnameInput.value || userInfo.surname || '';
+            emailInput.value = emailInput.value || userInfo.email || '';
+            aboutUserInput.value = aboutUserInput.value || userInfo.about_user || '';
+            phoneNumberInput.value = phoneNumberInput.value || userInfo.phone_number || '';
+        }
 
-            if (userInfo.name) {
-                name.innerHTML = `Имя: <p>${userInfo.name}</p>`;
-            }
-            
-            if (userInfo.surname) {
-                surname.innerHTML = `Фамилия: <p>${userInfo.surname}</p>`;
-            }
-    
-            if (userInfo.email) {
-                email.innerHTML = `Адрес электронной почты: <p>${userInfo.email}</p>`;
-            }
-    
-            if (userInfo.about_user) {
-                about_user.innerHTML = `Обо мне: <p>${userInfo.about_user}</p>`;
-            }
-    
-            if (userInfo.phone_number) {
-                phone_number.innerHTML = `Номер телефона: <p>${userInfo.phone_number}</p>`;
-            }
-        } 
         console.log(data);
     }
 
-        // отображение каталога, профиля пользователя
-        const checkAuthorize = async () => {
-            const logoutButton = document.getElementById('logoutButton');
-            const logInButton = document.getElementById('log-in-button');
+    // отображение каталога, профиля пользователя
+    const checkAuthorize = async () => {
+        const logoutButton = document.getElementById('logoutButton');
+        const logInButton = document.getElementById('log-in-button');
     
-            const token = window.localStorage.getItem('token');
-            const catalogue = document.getElementById('catalog');
-            const navCatalogue = document.getElementById('nav-catalog');
-            const profileWindow = document.getElementById('profile');
+        const token = window.localStorage.getItem('token');
+        const catalogue = document.getElementById('catalog');
+        const navCatalogue = document.getElementById('nav-catalog');
+        const profileWindow = document.getElementById('profile');
             
-            if (token && token !== 'undefined') {
-                catalogue ? catalogue.style.display = 'block' : null;
-                navCatalogue ? navCatalogue.style.display = 'block' : null;
-                profileWindow ? profileWindow.style.display = 'block': null;
-    
-                loadProfile();
-            } else {
-                catalogue ? catalogue.style.display = 'none' : null;
-                navCatalogue ? navCatalogue.style.display = 'none' : null;
-                profileWindow ? profileWindow.style.display = 'none': null;
-            }
+        if (token && token !== 'undefined') {
+            catalogue ? catalogue.style.display = 'block' : null;
+            navCatalogue ? navCatalogue.style.display = 'block' : null;
+            profileWindow ? profileWindow.style.display = 'block': null;
             
-            logoutButton.addEventListener('click', () => {
-                window.location.reload()
-            });
-            logInButton.addEventListener('click', () => {
-                setTimeout(() => window.location.reload(), 1000)
-            });
-        }  
-        window.addEventListener('DOMContentLoaded', checkAuthorize) 
+            loadProfile();
+        } else {
+            catalogue ? catalogue.style.display = 'none' : null;
+            navCatalogue ? navCatalogue.style.display = 'none' : null;
+            profileWindow ? profileWindow.style.display = 'none': null;
+        }
+            
+        logoutButton.addEventListener('click', () => {
+            window.location.reload()
+        });
+        logInButton.addEventListener('click', () => {
+            setTimeout(() => window.location.reload(), 1000)
+        });
+    }  
+    window.addEventListener('DOMContentLoaded', checkAuthorize)
+     
         
     // Обновление профиля пользователя
     document.getElementById('saveProfile').addEventListener('click', async () => {
@@ -194,16 +209,16 @@
         console.log(data);
     })
 
-    window.onclick = function(event) {
-        if ( event.target == authModal || event.target == registerModal) {
-            authModal.style.display = 'none';
-            registerModal.style.display = 'none';
-        }
-    };
+    // window.onclick = function(event) {
+    //     if ( event.target == authModal || event.target == registerModal) {
+    //         authModal.style.display = 'none';
+    //         registerModal.style.display = 'none';
+    //     }
+    // };
 
-    document.getElementById('openAuthModal').addEventListener('click', function() {
-        document.getElementById('authModal').style.display = 'block';
-    });
+    // document.getElementById('openAuthModal').addEventListener('click', function() {
+    //     document.getElementById('authModal').style.display = 'block';
+    // });
     
     // кнопка выхода из аккаунта
     document.getElementById('logoutButton').addEventListener('click', function() {
@@ -215,31 +230,32 @@
         window.localStorage.removeItem('role');
         
     
-        alert('Вы успешно вышли из аккаунта');
+        alert('Вы вышли из аккаунта');
     });
 
     // добавление карточки
-    document.getElementById('addCardButton').addEventListener('click', async () => {
-        const addCarButton = document.getElementById('addCardButton');
-        const card_name = document.getElementById('cardTitle').value;
-        const card_price = document.getElementById('cardPrice').value;
-        const card_description = document.getElementById('cardText').value;
-
-        const token = localStorage.getItem('token');
-
-        const response = await fetch('http://localhost:5000/addcard', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({card_name, card_price, card_description})
+    if (addCardButton) {
+        addCardButton.addEventListener('click', async () => {
+            const card_name = document.getElementById('cardTitle').value;
+            const card_price = document.getElementById('cardPrice').value;
+            const card_description = document.getElementById('cardText').value;
+    
+            const token = localStorage.getItem('token');
+    
+            const response = await fetch('http://localhost:5000/addcard', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({card_name, card_price, card_description})
+            });
+            const data = await response.json();
+    
+            console.log(data);
         });
-        const data = await response.json();
-
-        console.log(data);
-    });
-
+    }
+    
     // просмотр всех карточек
     document.getElementById('showCardButton').addEventListener('click', async () => {
         const cardsContainer = document.querySelector('.card-container');

@@ -14,29 +14,51 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#services">Услуги</a></li>
-                    <li id="nav-catalog"><a href="#catalog">Каталог</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                    <li><a href="#" id="openAuthModal">Вход</a></li>
+                    <li><button type="button" class="about-us-button in-nav">О нас</button></li>
+                    <li><button type="button" class="services-button in-nav">Услуги</button></li>
+                    <li id="nav-catalog"><button type="button" class="catalogue-button in-nav">Каталог</button></li>
+                    <li><button type="button" class="contact-button in-nav">Контакты</button></li>
+                    <li><button type="button" class="login-button in-nav">Вход</button></li>
                     <li id="userProfile" style="display:none;">
-                        <a href="#profile">Профиль</a>
+                        <button type="button" class="profile-button in-nav">Профиль</button>
                     </li>
                 </ul>
             </nav>
             <div class="social-links">
-                <a href="#" class="social-icon">
-                    <img src="facebook.png" alt="Facebook" />
-                </a>
-                <a href="#" class="social-icon">
-                    <img src="instagram.png" alt="Instagram" />
-                </a>
-                <a href="#" class="social-icon">
-                    <img src="twitter.png" alt="Twitter" />
-                </a>
+                <button type="button" class="facebook-button in-nav"><img src="facebook.png" alt="Facebook"/></button>
+                <button type="button" class="instagram-button in-nav"><img src="instagram.png" alt="Instagram"/></button>
+                <button type="button" class="twitter-button in-nav"><img src="twitter.png" alt="Twitter"/></button>
             </div>
         </div>
     </header>
+    <!-- Окно входа -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Вход</h2>
+            <form id="authForm">
+                <input type="text" id="username" placeholder="Email пользователя" required autocomplete="off">
+                <input type="password" id="password" placeholder="Пароль" required autocomplete="off">
+                <button id="log-in-button" type="button">Подтвердить</button>
+                <p id="toggleAuthText">У вас нет аккаунта?
+                    <button type="button" class="to-registration-button in-nav">Зарегистрироваться</button>
+                </p>
+            </form>
+        </div>
+    </div>
+    <!-- Окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <input type="text" id="regUsername" placeholder="Имя пользователя" required autocomplete="off">
+                <input type="email" id="regEmail" placeholder="Email" required autocomplete="off">
+                <input type="password" id="regPassword" placeholder="Пароль" required autocomplete="off">
+                <button type="submit" id="submitRegistration" class="registraiton-button in-nav">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
     <div class="container" id="profile" style="display:none;">
         <h2>Профиль пользователя</h2>
         <p>Добро пожаловать, <span id="profileUsername"></span>!</p>
@@ -65,7 +87,7 @@
                 <p class="text-pink"> а ты им помогаешь</p>
                 <p class="text-black">делать покупки  </p>
                 <p class="text-pink2">с WeddingBox!</p>
-                <a href="" class="start-button">Начать</a>
+                <button type="button" class="start-button">Начать</button>
             </div>
             <div class="image-block">
                 <div class="circle"></div>  
@@ -98,7 +120,6 @@
         <p class="text-pink centered-text">Пользователи WeddingBox собирают на:</p>
             <div class="image-grid">
                 <div class="image-item">
-                    <a href="your-link-here.html"></a>
                     <img src="phone.gif" alt="Смартфоны" />
                     <p>Смартфоны</p>
                 </div>
@@ -184,7 +205,7 @@
                     <input type="text" id="expiryDate" placeholder="MM/YY" required>
                     <br><br>
                     <label for="cvv">CVV:</label>
-                    <input type="text" id="cvv" placeholder="XXX" required pattern="\d{3}">
+                    <input type="text" id="cvv" placeholder="secret" required pattern="\d{3}">
                     <br><br>
                     <button type="submit">Подтвердить оплату</button>
                 </form>
@@ -260,7 +281,7 @@
                                 </div>
                                 <div class="form-group CVV">
                                     <label for="cvv">CVV</label>
-                                    <input type="number" class="form-control" id="cvv">
+                                    <input type="number" class="form-control" id="cvvv">
                                 </div>
                             </div>
                             <div class="form-group btn" id="pay-now">
@@ -282,55 +303,24 @@
             <div class="footer-links">
                 <h3>Полезные ссылки</h3>
                 <ul>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#catalog">Каталог</a></li>
-                    <li><a href="#contact">Контакты</a></li>
+                    <li><button type="button" class="about-us-button in-nav">О нас</button></li>
+                    <li><button type="button" class="services-button in-nav">Услуги</button></li>
+                    <li id="nav-catalog"><button type="button" class="catalogue-button in-nav">Каталог</button></li>
+                    <li><button type="button" class="contact-button in-nav">Контакты</button></li>
                 </ul>
             </div>
             <div class="footer-social">
                 <h3>Следите за нами</h3>
                 <div class="social-links">
-                    <a href="#">
-                        <img src="facebook.png" alt="Facebook"/>
-                    </a>
-                    <a href="#">
-                        <img src="instagram.png" alt="Instagram"/>
-                    </a>
-                    <a href="#">
-                        <img src="twitter.png" alt="Twitter"/>
-                    </a>
+                    <button type="button" class="facebook-button in-nav"><img src="facebook.png" alt="Facebook"/></button>
+                    <button type="button" class="instagram-button in-nav"><img src="instagram.png" alt="Instagram"/></button>
+                    <button type="button" class="twitter-button in-nav"><img src="twitter.png" alt="Twitter"/></button>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- Окно входа -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modalTitle">Вход</h2>
-            <form id="authForm">
-                <input type="text" id="username" placeholder="Email пользователя" required autocomplete="off">
-                <input type="password" id="password" placeholder="Пароль" required autocomplete="off">
-                <button id="log-in-button" type="submit">Подтвердить</button>
-                <p id="toggleAuthText">У вас нет аккаунта? <a href="#" id="toggleToRegister">Зарегистрироваться</a></p>
-            </form>
-        </div>
-    </div>
-    <!-- Окно регистрации -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Регистрация</h2>
-            <form id="registerForm">
-                <input type="text" id="regUsername" placeholder="Имя пользователя" required autocomplete="off">
-                <input type="email" id="regEmail" placeholder="Email" required autocomplete="off">
-                <input type="password" id="regPassword" placeholder="Пароль" required autocomplete="off">
-                <button type="submit" id="submitRegistration">Зарегистрироваться</button>
-            </form>
-        </div>
-    </div>
     <script src="script.js"></script>
+    <script src="./navigation.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('modal');
@@ -349,12 +339,12 @@
                 modal.style.display = 'none';
             });
 
-            // Закрывает модальное окно при клике вне его
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
+            // // Закрывает модальное окно при клике вне его
+            // window.addEventListener('click', function(event) {
+            //     if (event.target === modal) {
+            //         modal.style.display = 'none';
+            //     }
+            // });
             // Добавление карточки
             // addCardButton.addEventListener('click', function() {
             //     const title = document.getElementById('cardTitle').value;
@@ -393,34 +383,34 @@
             // });
         });
         // Модальное окно оплаты
-        function openPaymentModal(title) {
-            const modal = document.getElementById('paymentModal');
-            document.getElementById('paymentForm').onsubmit = function(event) {
-                event.preventDefault(); // Предотвращаем отправку формы
-                alert(`Оплата за "${title}" подтверждена!`); // Сообщение об успешной оплате
-                modal.style.display = "none"; // Закрыть модальное окно после подтверждения
-            };
-            modal.style.display = "block"; // Открыть модальное окно
+        // function openPaymentModal(title) {
+        //     const modal = document.getElementById('paymentModal');
+        //     document.getElementById('paymentForm').onsubmit = function(event) {
+        //         event.preventDefault(); // Предотвращаем отправку формы
+        //         alert(`Оплата за "${title}" подтверждена!`); // Сообщение об успешной оплате
+        //         modal.style.display = "none"; // Закрыть модальное окно после подтверждения
+        //     };
+        //     modal.style.display = "block"; // Открыть модальное окно
 
-            // Закрытие модального окна при нажатии на крестик
-            document.querySelector('.close-button').onclick = function() {
-                modal.style.display = "none"; // Закрыть модальное окно
-            };
+        //     // Закрытие модального окна при нажатии на крестик
+        //     document.querySelector('.close-button').onclick = function() {
+        //         modal.style.display = "none"; // Закрыть модальное окно
+        //     };
 
-            // Закрытие модального окна при клике вне его
-            window.onclick = function(event) {
-                if (event.target === modal) {
-                    modal.style.display = "none"; // Закрытие окна
-                }
-            };
-        };
+        //     // Закрытие модального окна при клике вне его
+        //     window.onclick = function(event) {
+        //         if (event.target === modal) {
+        //             modal.style.display = "none"; // Закрытие окна
+        //         }
+        //     };
+        // };
 
-        const modal = document.getElementById("paymentModal");
-        const btn = document.getElementById("giftButton");
-        const btn2 = document.getElementById("giftButton2");
-        const btn3 = document.getElementById("giftButton3");
-        const btn4 = document.getElementById("giftButton4");
-        const span = document.getElementsByClassName("close")[0];
+        // const modal = document.getElementById("paymentModal");
+        // const btn = document.getElementById("giftButton");
+        // const btn2 = document.getElementById("giftButton2");
+        // const btn3 = document.getElementById("giftButton3");
+        // const btn4 = document.getElementById("giftButton4");
+        // const span = document.getElementsByClassName("close")[0];
 
         // btn.onclick = function() {
         //     modal.style.display = "block";
