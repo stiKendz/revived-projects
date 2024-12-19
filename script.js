@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(data);
     });
     
-    // Просмотр и редактирование профиля пользователя
+    // Просмотр профиля пользователя
     const profileContainer = document.getElementById('profile');
     async function loadProfile(){
         const name = document.querySelector('.user-name-output');
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('http://localhost:5000/userinfo', {
             method: 'GET',
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
@@ -119,15 +119,33 @@ document.addEventListener('DOMContentLoaded', () => {
             email.innerHTML = `Адрес электронной почты: <p>${userInfo.email ?? 'Нет данных'}</p>`;
             about_user.innerHTML = `Обо мне: <p>${userInfo.about_user ?? 'Нет данных'}</p>`;
             phone_number.innerHTML = `Номер телефона: <p>${userInfo.phone_number ?? 'Нет данных'}</p>`;
-
-            // name.value = data.name || '';
-            // surname.value = data.surname || '';
-            // email.value = data.email || '';
-            // about_user.value = data.about_user || '';
-            // phone_number.value = data.phone_number || '';
         } 
         console.log(data);
     }
+
+    // Обновление профиля пользователя
+    document.getElementById('saveProfile').addEventListener('click', async () => {
+        const name = document.getElementById('user-name').value;
+        const surname = document.getElementById('user-surname').value;
+        const email = document.getElementById('user-email').value;
+        const about_user = document.getElementById('about-me').value;
+        const phone_number = document.getElementById('phone-number').value;
+        const usernameSpan = document.getElementById('profileUsername');
+
+        const token = window.localStorage.getItem('token');
+
+        const response = await fetch('http://localhost:5000/updateuser', {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Baerer ${token}`
+            },
+            body: JSON.stringify({name, surname, email, about_user, phone_number})
+        })
+        const data = await response.json();
+
+        console.log(data);
+    })
 
     window.onclick = function(event) {
         if ( event.target == authModal || event.target == registerModal) {

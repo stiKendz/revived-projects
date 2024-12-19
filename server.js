@@ -175,12 +175,74 @@ app.get('/userinfo', async (req, res) => {
                 userInfo: result
             });
         } catch (err) {
-            console.error('Ошибка вывода информации о пользователе из-за ошибки в запросе' + err);
+            console.error('Ошибка вывода информации о пользователе из-за ошибки в запросе ' + err);
             res.status(500).send('Ошибка вывода информации о пользователе из-за ошибки в запросе');
         }
     } catch (err) {
         console.error('Ошибка вывода информации о пользователе из-за ошибки на сервере или в базе данных' + err);
         res.status(500).send('Ошибка вывода информации о пользователе из-за ошибки на сервере или в базе данных'); 
+    }
+});
+
+// обновление инсформации о пользователе
+app.put('/updateuser', async (req, res) => {
+    const {name, surname, email, about_user, phone_number} = req.body;
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if(!token) {
+        return res.status(401).json({message: 'Пользователь не зарегистророван'});
+    }
+
+    try {
+        const client = await pool.connect();
+
+        try {
+            const decodedToken = jwt.verify(token, SECRET_KEY);
+            const userId = decodedToken.userId;
+
+            // имя
+            const updateUserName = await client.query(
+                'UPDATE users_table SET name = $2 WHERE user_id = $1', [userId, name]
+            )
+            const resultName = updateUserName.rows[0].name;
+
+            // фамлия
+            const updateUserSurname = await client.query(
+                'UPDATE users_table SET surname = $2 WHERE user_id = $1', [userId, surname]
+            )
+            const resultSurname = updateUserSurname.rows[0].surname;
+
+            // адрес электронной почты
+            const updateUserEmail = await client.query(
+                'UPDATE users_table SET email = $2 WHERE user_id = $1', [userId, email]
+            )
+            const resultEmail = updateUserEmail.rows[0].email;
+
+            // описание пользователя
+            const updateAboutUser = await client.query(
+                'UPDATE users_table SET about_user = $2 WHERE user_id = $1', [userId, about_user]
+            )
+            const resultAboutUser = updateAboutUser.rows[0].about_user;
+
+            // номер телефона
+            const updatePhoneNumber = await client.query(
+                'UPDATE users_table SET phone_number = $2 WHERE user_id = $1', [userId, phone_number]
+            )
+            const resultPhoneNumber = updatePhoneNumber.rows[0].phone_number;
+
+            resultName ? res.status(201).json({message: 'Обновленные данные', newUserName: resultName}) : null;
+            resultSurname ? res.status(201).json({message: 'Обновленные данные', newUserSurname: resultSurname}) : null;
+            resultEmail ? res.status(201).json({message: 'Обновленные данные', newUserEmail: resultEmail}) : null;
+            resultAboutUser ? res.status(201).json({message: 'Обновленные данные', newAboutUser: resultAboutUser}) : null;
+            resultPhoneNumber ? res.status(201).json({message: 'Обновленные данные', newPhoneNumber: resultPhoneNumber}) : null;
+
+        } catch (err) {
+            console.error('Ошибка обновления информации о пользователе из-за ошибки в запросе' + err);
+            res.status(500).send('Ошибка обновления информации о пользователе из-за ошибки в запросе');
+        }
+    } catch (err) {
+        console.error('Ошибка обновления информации о пользователе из-за ошибки на сервере или в базе данных' + err);
+        res.status(500).send('Ошибка обновления информации о пользователе из-за ошибки на сервере или в базе данных'); 
     }
 });
 
