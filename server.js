@@ -204,37 +204,28 @@ app.put('/updateuser', async (req, res) => {
             const updateUserName = await client.query(
                 'UPDATE users_table SET name = $2 WHERE user_id = $1', [userId, name]
             )
-            const resultName = updateUserName.rows[0].name;
 
             // фамилия
             const updateUserSurname = await client.query(
                 'UPDATE users_table SET surname = $2 WHERE user_id = $1', [userId, surname]
             )
-            const resultSurname = updateUserSurname.rows[0].surname;
 
             // адрес электронной почты
             const updateUserEmail = await client.query(
                 'UPDATE users_table SET email = $2 WHERE user_id = $1', [userId, email]
             )
-            const resultEmail = updateUserEmail.rows[0].email;
 
             // описание пользователя
             const updateAboutUser = await client.query(
                 'UPDATE users_table SET about_user = $2 WHERE user_id = $1', [userId, about_user]
             )
-            const resultAboutUser = updateAboutUser.rows[0].about_user;
 
             // номер телефона
             const updatePhoneNumber = await client.query(
                 'UPDATE users_table SET phone_number = $2 WHERE user_id = $1', [userId, phone_number]
             )
-            const resultPhoneNumber = updatePhoneNumber.rows[0].phone_number;
 
-            resultName ? res.status(201).json({message: 'Обновленные данные', newUserName: resultName}) : null;
-            resultSurname ? res.status(201).json({message: 'Обновленные данные', newUserSurname: resultSurname}) : null;
-            resultEmail ? res.status(201).json({message: 'Обновленные данные', newUserEmail: resultEmail}) : null;
-            resultAboutUser ? res.status(201).json({message: 'Обновленные данные', newAboutUser: resultAboutUser}) : null;
-            resultPhoneNumber ? res.status(201).json({message: 'Обновленные данные', newPhoneNumber: resultPhoneNumber}) : null;
+            res.status(200).json({message: 'Обновленные данные сохранены'});
 
         } catch (err) {
             console.error('Ошибка обновления информации о пользователе из-за ошибки в запросе' + err);

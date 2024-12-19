@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+
 
     const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
     const authModal = document.getElementById('authModal');
@@ -79,8 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.localStorage.setItem('token', data.token);
             window.localStorage.setItem('email', data.email);
             window.localStorage.setItem('role', data.role);
-
-            
         } else {
             alert('Ошибка при входе в аккаунт');
         }
@@ -114,15 +112,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
             usernameSpan.textContent = userInfo.name ?? 'Нет данных';
 
-            name.innerHTML = `Имя: <p>${userInfo.name ?? 'Нет данных'}</p>`;
-            surname.innerHTML = `Фамилия: <p>${userInfo.surname ?? 'Нет данных'}</p>`;
-            email.innerHTML = `Адрес электронной почты: <p>${userInfo.email ?? 'Нет данных'}</p>`;
-            about_user.innerHTML = `Обо мне: <p>${userInfo.about_user ?? 'Нет данных'}</p>`;
-            phone_number.innerHTML = `Номер телефона: <p>${userInfo.phone_number ?? 'Нет данных'}</p>`;
+            if (userInfo.name) {
+                name.innerHTML = `Имя: <p>${userInfo.name}</p>`;
+            }
+            
+            if (userInfo.surname) {
+                surname.innerHTML = `Фамилия: <p>${userInfo.surname}</p>`;
+            }
+    
+            if (userInfo.email) {
+                email.innerHTML = `Адрес электронной почты: <p>${userInfo.email}</p>`;
+            }
+    
+            if (userInfo.about_user) {
+                about_user.innerHTML = `Обо мне: <p>${userInfo.about_user}</p>`;
+            }
+    
+            if (userInfo.phone_number) {
+                phone_number.innerHTML = `Номер телефона: <p>${userInfo.phone_number}</p>`;
+            }
         } 
         console.log(data);
     }
 
+        // отображение каталога, профиля пользователя
+        const checkAuthorize = async () => {
+            const logoutButton = document.getElementById('logoutButton');
+            const logInButton = document.getElementById('log-in-button');
+    
+            const token = window.localStorage.getItem('token');
+            const catalogue = document.getElementById('catalog');
+            const navCatalogue = document.getElementById('nav-catalog');
+            const profileWindow = document.getElementById('profile');
+            
+            if (token && token !== 'undefined') {
+                catalogue ? catalogue.style.display = 'block' : null;
+                navCatalogue ? navCatalogue.style.display = 'block' : null;
+                profileWindow ? profileWindow.style.display = 'block': null;
+    
+                loadProfile();
+            } else {
+                catalogue ? catalogue.style.display = 'none' : null;
+                navCatalogue ? navCatalogue.style.display = 'none' : null;
+                profileWindow ? profileWindow.style.display = 'none': null;
+            }
+            
+            logoutButton.addEventListener('click', () => {
+                window.location.reload()
+            });
+            logInButton.addEventListener('click', () => {
+                setTimeout(() => window.location.reload(), 1000)
+            });
+        }  
+        window.addEventListener('DOMContentLoaded', checkAuthorize) 
+        
     // Обновление профиля пользователя
     document.getElementById('saveProfile').addEventListener('click', async () => {
         const name = document.getElementById('user-name').value;
@@ -144,6 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         const data = await response.json();
 
+        // обновление окна профиля
+        if(data) {
+            loadProfile();
+        }
         console.log(data);
     })
 
@@ -228,12 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(data);
     });
     
-    // Пример функции для успешного входа
-    function onLoginSuccess(username) {
-        document.getElementById('profileUsername').innerText = username;
-        document.getElementById('userProfile').style.display = 'block';
-        document.getElementById('profile').style.display = 'block';
-    }
     
     // Обработчик для кнопки "Профиль"
     document.getElementById('userProfile').addEventListener('click', function() {
@@ -254,37 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // отображение каталога, профиля пользователя
-    const checkAuthorize = () => {
-        const logoutButton = document.getElementById('logoutButton');
-        const logInButton = document.getElementById('log-in-button');
-
-        const token = window.localStorage.getItem('token');
-        const catalogue = document.getElementById('catalog');
-        const navCatalogue = document.getElementById('nav-catalog');
-        const profileWindow = document.getElementById('profile');
-        
-        if (token && token !== 'undefined') {
-            catalogue ? catalogue.style.display = 'block' : null;
-            navCatalogue ? navCatalogue.style.display = 'block' : null;
-            profileWindow ? profileWindow.style.display = 'block': null;
-
-            loadProfile();
-        } else {
-            catalogue ? catalogue.style.display = 'none' : null;
-            navCatalogue ? navCatalogue.style.display = 'none' : null;
-            profileWindow ? profileWindow.style.display = 'none': null;
-        }
-        
-        logoutButton.addEventListener('click', () => {
-            window.location.reload()
-        });
-        logInButton.addEventListener('click', () => {
-            setTimeout(() => window.location.reload(), 1000)
-        });
-    }   
-    window.addEventListener('DOMContentLoaded', checkAuthorize)
-}); 
 
 
 
