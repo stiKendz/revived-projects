@@ -206,7 +206,7 @@ app.put('/updateuser', async (req, res) => {
             )
             const resultName = updateUserName.rows[0].name;
 
-            // фамлия
+            // фамилия
             const updateUserSurname = await client.query(
                 'UPDATE users_table SET surname = $2 WHERE user_id = $1', [userId, surname]
             )

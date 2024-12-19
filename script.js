@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json',
-                'Authorization': `Baerer ${token}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({name, surname, email, about_user, phone_number})
         })
