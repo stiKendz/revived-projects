@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Заказы</title>
+</head>
+    <body>
+        <header>
+            <img src="logo.png" alt="Логотип">
+            <li><button type="button" id="openAuthModal">Войти</button></li>
+            <li><button type="button" id="profile-button">Профиль</button></li>
+        </header>
+        <div class="order-card">
+            <h3>Заказ № --</h3>
+            <div class="order-details">
+                <strong>Название компании:</strong> <span id="order-company-name"></span><br>
+                <strong>Контактное лицо:</strong> <span id="order-contact-name"></span><br>
+                <strong>Телефон:</strong> <span id="order-phone"></span><br>
+                <strong>Email:</strong> <span id="order-email"></span><br>
+                <strong>Наименование груза:</strong> <span id="order-cargo-name"></span><br>
+                <strong>Фактический вес:</strong> <span id="order-weight"></span><br>
+                <strong>Габариты:</strong> <span id="order-dimensions"></span><br>
+                <strong>Требуемый транспорт:</strong> <span id="order-transport"></span><br>
+                <strong>Условия перевозки:</strong> <span id="order-conditions"></span><br>
+                <strong>Прикрепленные файлы:</strong> <span id="order-files"></span>
+            </div>
+        </div>
+        <script src="script.js"></script>
+        <script src="./navigation.js"></script>
+    </body>
+</html>
