@@ -14,6 +14,32 @@
         <li><button type="button" id="profile-button">Профиль</button></li>
     </header>
 
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Вход</h2>
+            <form id="authForm">
+                <input type="text" id="user-email" placeholder="Адрес электронной почты">
+                <input type="text" id="password" placeholder="Пароль" autocomplete="off">
+                <button type="submit" class="apply-button">Подтвердить</button>
+                <p id="toggleAuthText">У вас нет аккаунта? <button type="button" id="toggleToRegister" class="to-registration">Зарегистрироваться</button></p>
+            </form>
+        </div>
+    </div>
+    <!-- Элемент регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <input type="text" id="reg-username" placeholder="Имя пользователя" required autocomplete="off">
+                <input type="text" id="reg-email" placeholder="Email" required autocomplete="off">
+                <input type="text" id="reg-password" placeholder="Пароль" required autocomplete="off">
+                <button type="submit" id="submitRegistration" class="submit-registration">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
     <div id="loader" style="display:none;">Загрузка...</div>
     <div class="background"></div>
    
@@ -200,67 +226,17 @@
 
 
                 <div class="request-block">
-                    <h3>Оставьте заявку</h3>
+                    <h3>Офрормите заказ</h3>
                     <p>В ближайшее время наш менеджер перезвонит вам для уточнения деталей сотрудничества.</p>
-                
-                    <form id="request-form" onsubmit="saveOrderData(event)">
-                        <div class="form-group">
-                            <label for="company-name">Название компании *</label>
-                            <input type="text" id="company-name" placeholder="например, ООО Строймонтаж" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contact-name">Контактное лицо *</label>
-                            <input type="text" id="contact-name" placeholder="Петров Иван" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Телефон *</label>
-                            <input type="tel" id="phone" placeholder="+7(495)999-99-99" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="petrov@yandex.ru">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="cargo-name">Наименование груза *</label>
-                            <input type="text" id="cargo-name" placeholder="например, оборудование" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="weight">Фактический вес *</label>
-                            <input type="text" id="weight" placeholder="например, 500 кг" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="dimensions">Габариты *</label>
-                            <input type="text" id="dimensions" placeholder="длина, ширина, высота (в метрах)" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="transport">Требуемый транспорт *</label>
-                            <input type="text" id="transport" placeholder="например, еврофура, вагон, контейнер" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="conditions">Условия перевозки</label>
-                            <input type="text" id="conditions" placeholder="например, терморежим">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="file-upload">Прикрепить файлы</label>
-                            <input type="file" id="file-upload">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" required> С условиями конфиденциальности согласен
-                            </label>
-                        </div>
-                        
-                        <button type="submit">Отправить</button>
+                    <input type="text" class="company-name-input" placeholder="Введите название компании"></input>
+                    <input type="text" class="contact-name-input" placeholder="Введите имя контакного лица"></input>
+                    <input type="text" class="phone-input" placeholder="Введите свой номер телефона"></input>
+                    <input type="text" class="email-input" placeholder="Введите адрес электронной почты"></input>
+                    <input type="text" class="cargo-name-input" placeholder="Введите название груза"></input>
+                    <input type="text" class="cargo-weight-input" placeholder="Введите примерный вес груза (кг)"></input>
+                    <input type="text" class="dimensions-input" placeholder="Введите характеристики Д-Ш-В (длина-ширина-высота)"></input>
+                    <input type="text" class="required-transport-input" placeholder="Введите рекомендемый тип транспорта"></input>
+                    <button type="button" class="submit-order">Оформить заказ</button>
                     </form>
                 </div>
                 <section class="reviews-section">
@@ -307,39 +283,8 @@
                         <button type="button">Twitter</button>
                         <button type="button">VK</button>
                     </div>
-                    <div class="links">
-                        <button type="button">О компании</button>
-                        <button type="button">Наши услуги</button>
-                        <button type="button">Контакты</button>
-                        <button type="button">Политика конфиденциальности</button>
-                    </div>
                 </footer>
-                <div id="authModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2 id="modalTitle">Вход</h2>
-                        <form id="authForm">
-                            <input type="text" id="username" placeholder="Имя пользователя" required>
-                            <input type="password" id="password" placeholder="Пароль" required autocomplete="off">
-                            <button type="submit">Подтвердить</button>
-                            <p id="toggleAuthText">У вас нет аккаунта? <a href="#" id="toggleToRegister">Зарегистрироваться</a></p>
-                        </form>
-                    </div>
-                </div>
-                
-                <!-- Элемент регистрации -->
-                <div id="registerModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <h2>Регистрация</h2>
-                        <form id="registerForm">
-                            <input type="text" id="regUsername" placeholder="Имя пользователя" required autocomplete="off">
-                            <input type="email" id="regEmail" placeholder="Email" required autocomplete="off">
-                            <input type="password" id="regPassword" placeholder="Пароль" required autocomplete="off">
-                            <button type="submit" id="submitRegistration">Зарегистрироваться</button>
-                        </form>
-                    </div>
-   
+
                 <script src="script.js"></script>
                 <script src="./navigation.js"></script>
                 <script>

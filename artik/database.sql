@@ -1,11 +1,8 @@
 CREATE TABLE users_table (
 	user_id serial primary key,
 	name varchar(64) not null,
-	surname varchar(64) null,
     email varchar(64) not null,
-	password varchar(128) not null,
-	about_user text null,
-	phone_number varchar(64) null
+	password varchar(128) not null
 );
 
 CREATE TABLE roles_table (
@@ -25,8 +22,16 @@ CREATE TABLE orders_table (
     cargo_name VARCHAR(255) NOT NULL, -- наименование груза
     cargo_weight VARCHAR(255), 
     dimensions VARCHAR(100), -- Например, "Длина x Ширина x Высота"
-    required_transport VARCHAR(100),-- требемый транспорт
+    required_transport VARCHAR(100),-- требуемый транспорт
 	foreign key (user_id) references users_table (user_id) on delete cascade on update cascade
+);
+
+CREATE TABLE reviews_table (
+    review_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    rating INT NOT NULL,
+    comment TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users_table (user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 SELECT * FROM orders_table;

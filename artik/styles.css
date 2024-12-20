@@ -97,6 +97,8 @@ nav {
     justify-content: center;
 }
 nav button {
+    width: 150px;
+    height: 50px;
     background-color: #4a90e2;
     color: white;
     border: none;
@@ -570,8 +572,8 @@ button {
     color:white;
 
     cursor: pointer;
-    min-width: 150px;
-    min-height: 50px;
+    width: 150px;
+    height: 50px;
 
     font-size: 16px;
     font-weight: 900;
@@ -583,5 +585,76 @@ button:focus{
 
   outline: 4px solid #FFDBA8;
   transition: 0.15s ease-in;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin: 0;
+    padding: 20px;
+
+    text-align: center;
+
+    background-color: #2f2f2f;
+    color: white;
+}
+footer .socials a {
+    color: white;
+    margin: 0px;
+
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.submit-registration {
+    width: 100%;
+
+    padding: 0;
+
+    color: #FFDBA8;
+    outline: #FFDBA8;
+}
+.to-registration {
+    width: 100%;
+
+    padding: 0;
+    
+    color: #FFDBA8;
+    outline: #FFDBA8;
+}
+.apply-button {
+    width: 100%;
+
+    padding: 0;
+    
+    color: #FFDBA8;
+    outline: #FFDBA8;
+}
+.submit-order {
+    width: 100%;
+
+    padding: 0;
+    
+    color: #FFDBA8;
+    outline: #FFDBA8;
+} 
+.submit-order:hover,
+.show-orders-button {
+    color: #007BFF;
+    outline: #007BFF;
+}
+.submit-order:focus
+.show-orders-button {
+    color: #007BFF;
+    outline: #007BFF;
+}
+
+.show-orders-button {
+    padding: 0;
+    
+    color: #FFDBA8;
+    outline: #FFDBA8; 
 }
 

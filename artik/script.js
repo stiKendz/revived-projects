@@ -32,38 +32,6 @@ behavior: 'smooth'
 }
 //Валадиция формы обратной связи
 
-document.getElementById('request-form').addEventListener('submit', function(event) {
-    let isValid = true;
-    const requiredFields = [
-        'company-name',
-        'contact-name',
-        'phone',
-        'cargo-name',
-        'weight',
-        'dimensions',
-        'transport'
-    ];
-
-    requiredFields.forEach(field => {
-        const input = document.getElementById(field);
-        if (!input.value) {
-            isValid = false;
-            input.classList.add('error'); // добавляем класс для выделения ошибки
-        } else {
-            input.classList.remove('error');
-        }
-    });
-
-    if (!isValid) {
-        event.preventDefault(); // отменяем отправку формы
-        alert("Пожалуйста, заполните все обязательные поля.");
-    }
-});
-
-
-
-document.getElementById('weight').addEventListener('input', calculateCost);
-
 
 
 const buttons = document.querySelectorAll('button');
@@ -92,20 +60,17 @@ function notifyUser(message) {
 // Пример вызова
 notifyUser("Ваш заказ был успешно оформлен!");
 
+// function showLoader() {
+//     document.getElementById('loader').style.display = 'block'; // показать прелоадер
+// }
+// function hideLoader() {
+//     document.getElementById('loader').style.display = 'none'; // скрыть прелоадер
+// }
 
-
-
-function showLoader() {
-    document.getElementById('loader').style.display = 'block'; // показать прелоадер
-}
-function hideLoader() {
-    document.getElementById('loader').style.display = 'none'; // скрыть прелоадер
-}
-
-// Пример использования
-showLoader();
-// После загрузки данных
-hideLoader();
+// // Пример использования
+// showLoader();
+// // После загрузки данных
+// hideLoader();
 
 
 
@@ -119,8 +84,9 @@ if (navigator.geolocation) {
 }
 
 
-
-document.getElementById('review-form').addEventListener('submit', function(event) {
+const revievForm = document.getElementById('review-form');
+if (revievForm) {
+    revievForm.addEventListener('submit', function(event) {
     event.preventDefault(); // предотвращаем стандартное поведение формы
 
     const name = document.getElementById('reviewer-name').value;
@@ -142,129 +108,200 @@ document.getElementById('review-form').addEventListener('submit', function(event
         document.getElementById('review-rating').value = '';
         document.getElementById('review-comment').value = '';
     }
-});
+    })
+}
+// document.getElementById('review-form').addEventListener('submit', function(event) {
+//     event.preventDefault(); // предотвращаем стандартное поведение формы
+
+//     const name = document.getElementById('reviewer-name').value;
+//     const rating = document.getElementById('review-rating').value;
+//     const comment = document.getElementById('review-comment').value;
+
+//     if (name && rating && comment) {
+//         const reviewItem = document.createElement('div');
+//         reviewItem.classList.add('review-item');
+//         reviewItem.innerHTML = `
+//             <h5>${name} <span class="review-rating">${'⭐'.repeat(rating)}</span></h5>
+//             <p>${comment}</p>
+//         `;
+
+//         document.getElementById('reviews-list').appendChild(reviewItem);
+
+//         // Очистка полей после отправки
+//         document.getElementById('reviewer-name').value = '';
+//         document.getElementById('review-rating').value = '';
+//         document.getElementById('review-comment').value = '';
+//     }
+// });
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
 
     const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
     const authModal = document.getElementById('authModal');
-    const closeAuthModalButton = authModal.querySelector('.close');
+    if (authModal) {
+        const closeAuthModalButton = authModal.querySelector('.close');
     
-    const registerModal = document.getElementById('registerModal');
-    const toggleToRegisterButton = document.getElementById('toggleToRegister');
-    const closeRegisterModalButton = registerModal.querySelector('.close');
-    
-   
-
-    // Открытие и закрытие модальных окон
-    
-    openAuthModalButtons.forEach(button => {
-        button.onclick = () => {
-            authModal.style.display = 'block';
-            registerModal.style.display = 'none'; // Закрыть окно регистрации при открытии входа
-        };
-    });
-
-    closeAuthModalButton.onclick = () => {
-        authModal.style.display = 'none';
-    };
-
-    toggleToRegisterButton.onclick = (e) => {
-        e.preventDefault();
-        authModal.style.display = 'none'; // Закрыть окно входа
-        registerModal.style.display = 'block'; // Открыть окно регистрации
-    };
-
-    closeRegisterModalButton.onclick = () => {
-        registerModal.style.display = 'none';
-    };
-
-    // // Простой фейковый вход и регистрация
-    // document.getElementById('authForm').addEventListener('submit', function(event) {
-    //     event.preventDefault();
-    //     const username = document.getElementById('username').value;
-    //     const password = document.getElementById('password').value;
-
-    //     if (username && password) {
-    //         // Логика проверки данных
-    //         alert(`Вход как: ${username}`);
-    //         authModal.style.display = 'none';
-    //     } else {
-    //         alert('Пожалуйста, заполните все поля.');
-    //     }
-    // });
-
-    document.getElementById('submitRegistration').addEventListener('click', async function(event) {
-        event.preventDefault();
-        const regUsername = document.getElementById('regUsername').value;
-        const regEmail = document.getElementById('regEmail').value;
-        const regPassword = document.getElementById('regPassword').value;
-
+        const registerModal = document.getElementById('registerModal');
+        const toggleToRegisterButton = document.getElementById('toggleToRegister');
+        const closeRegisterModalButton = registerModal.querySelector('.close');
         
-        if (regUsername && regEmail && regPassword) {
+       
+    
+        // Открытие и закрытие модальных окон
+        
+        openAuthModalButtons.forEach(button => {
+            button.onclick = () => {
+                authModal.style.display = 'block';
+                registerModal.style.display = 'none'; // Закрыть окно регистрации при открытии входа
+            };
+        });
+    
+        closeAuthModalButton.onclick = () => {
+            authModal.style.display = 'none';
+        };
+    
+        toggleToRegisterButton.onclick = (e) => {
+            e.preventDefault();
+            authModal.style.display = 'none'; // Закрыть окно входа
+            registerModal.style.display = 'block'; // Открыть окно регистрации
+        };
+    
+        closeRegisterModalButton.onclick = () => {
+            registerModal.style.display = 'none';
+        };
+    }
+
+    const submitRegistration = document.getElementById('submitRegistration');
+
+    // Регистрация пользователя
+    if (submitRegistration) {
+        submitRegistration.addEventListener('click', async function(event) {
+            event.preventDefault();
+            const name = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+    
+            
             const response = await fetch('http://localhost:5000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    username: regUsername,
-                    email: regEmail,
-                    password: regPassword
-                })
+                body: JSON.stringify({name, email, password})
             });
-            
-            if (response.ok) {
-                const result = await response.json();
-                alert(`Вы успешно зарегистрировались под именем ${regUsername}`);
+            const data = await response.json();
+                
+            if (data) {
                 registerModal.style.display = 'none';
-            } else {
-                const errorMessage = await response.text();
-                alert(errorMessage);
             }
-        } else {
-            alert('Пожалуйста, заполните все поля.');
-        }
-    });
+            console.log(data)
+        });
+    }
     
-    // Пример с использованием fetch API для входа
-    document.getElementById('authForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-    
-        if (username && password) {
+    const authForm = document.getElementById('authForm');
+    // Вход пользователя
+    if( authForm ) {
+        authForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('user-email').value;
+            const password = document.getElementById('password').value;
+        
             const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    username: username,
-                    password: password
+                body: JSON.stringify({email, password})
                 })
-            });
-            
-            if (response.ok) {
-                const result = await response.json();
-                alert(result.message);
-                authModal.style.display = 'none';
-            } else {
-                const errorMessage = await response.text();
-                alert(errorMessage);
-            }
-        } else {
-            alert('Пожалуйста, заполните все поля.');
-        }
-    });
-
-    // Закрытие модальных окон при нажатии вне их
-    window.onclick = function(event) {
-        if ( event.target == authModal || event.target == registerModal) {
-            authModal.style.display = 'none';
-            registerModal.style.display = 'none';
-        }
+                const data = await response.json();
+                
+                if (data) {
+                    authModal.style.display = 'none';
+    
+                    window.localStorage.setItem('token', data.token);
+                    window.localStorage.setItem('email', data.email);
+                    window.localStorage.setItem('role', data.role);
+                } 
+                console.log(data);
+        });
     };
-}); 
+    
+
+        const submitOrderButton = document.querySelector('.submit-order');
+        // Оформление заказа
+        if (submitOrderButton) {
+            submitOrderButton.addEventListener('click', async () => {
+                const user_id = 1; // Здесь вы можете подставить актуальный ID пользователя
+                const company_name = document.querySelector('.company-name-input').value;
+                const contact_name = document.querySelector('.contact-name-input').value;
+                const phone = document.querySelector('.phone-input').value;
+                const email = document.querySelector('.email-input').value;
+                const cargo_name = document.querySelector('.cargo-name-input').value;
+                const cargo_weight = document.querySelector('.cargo-weight-input').value;
+                const dimensions = document.querySelector('.dimensions-input').value;
+                const required_transport = document.querySelector('.required-transport-input').value;
+
+                const response = await fetch('http://localhost:5000/addorder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_id, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport })
+                });
+
+                const data = await response.json();
+
+                // Вывод сообщения о результате
+                alert(data.message);
+            });
+        }
+
+        async function fetchAllOrders() {
+            const response = await fetch('http://localhost:5000/getorders', {
+                method: 'GET'
+            });
+        
+            const data = await response.json();
+            const orderCardContainer = document.querySelector('.order-card-container'); // Контейнер для заказов
+        
+            // Очистка контейнера перед добавлением новых заказов
+            orderCardContainer.innerHTML = '';
+        
+            if (data && data.allOrders && data.allOrders.length > 0) {
+                data.allOrders.forEach(order => {
+                    const orderCard = document.createElement('div');
+                    orderCard.className = 'order-card';
+                    orderCard.innerHTML = `
+                        <h3>Заказ № ${order.order_id}</h3>
+                        <div class="order-details">
+                            <p>Название компании: ${order.company_name}</p>
+                            <p>Контактное лицо: ${order.contact_name}</p>
+                            <p>Телефон: ${order.phone}</p>
+                            <p>Email: ${order.email}</p>
+                            <p>Название груза: ${order.cargo_name}</p>
+                            <p>Вес груза: ${order.cargo_weight} кг</p>
+                            <p>Размеры: ${order.dimensions}</p>
+                            <p>Тип транспорта: ${order.required_transport}</p>
+                        </div>
+                    `;
+                    orderCardContainer.appendChild(orderCard);
+                });
+            } else {
+                orderCardContainer.innerHTML = '<p>Нет заказов.</p>';
+            }
+        }
+        
+        const showOrdersButton = document.querySelector('.show-orders-button');
+        // Вызов функции для получения заказов по нажатию кнопки
+        if (showOrdersButton) {
+            showOrdersButton.addEventListener('click', fetchAllOrders);
+        }
+    // // Закрытие модальных окон при нажатии вне их
+    // window.onclick = function(event) {
+    //     if ( event.target == authModal || event.target == registerModal) {
+    //         authModal.style.display = 'none';
+    //         registerModal.style.display = 'none';
+    //     }
+    // };
+
