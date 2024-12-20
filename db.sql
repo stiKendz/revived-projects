@@ -2,7 +2,7 @@ CREATE TABLE users_table (
 	user_id serial primary key,
 	name varchar(64) not null,
 	surname varchar(64) null,
-    email varchar(64) not null,
+    email varchar(64) unique not null,
 	password varchar(128) not null,
 	about_user text null,
 	phone_number varchar(64) null
