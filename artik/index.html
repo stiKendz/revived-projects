@@ -13,7 +13,6 @@
         <li><button type="button" id="orders-button">Заказы</button></li>
         <li><button type="button" id="profile-button">Профиль</button></li>
     </header>
-
     <div id="authModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -32,17 +31,15 @@
             <span class="close">&times;</span>
             <h2>Регистрация</h2>
             <form id="registerForm">
-                <input type="text" id="reg-username" placeholder="Имя пользователя" required autocomplete="off">
-                <input type="text" id="reg-email" placeholder="Email" required autocomplete="off">
-                <input type="text" id="reg-password" placeholder="Пароль" required autocomplete="off">
+                <input type="text" id="reg-username" placeholder="Имя пользователя" autocomplete="off">
+                <input type="text" id="reg-email" placeholder="Email" autocomplete="off">
+                <input type="text" id="reg-password" placeholder="Пароль" autocomplete="off">
                 <button type="submit" id="submitRegistration" class="submit-registration">Зарегистрироваться</button>
             </form>
         </div>
     </div>
-
     <div id="loader" style="display:none;">Загрузка...</div>
     <div class="background"></div>
-   
     <div class="container">
         <div class="block">
             <h3>Управление заказом</h3>
@@ -86,43 +83,45 @@
         <button onclick="navigate('manufacturers')">Производителям</button>
         <button onclick="navigate('online_store')">Интернет магазинам</button>
     </nav>
-<section>
-    <div class="containerp">
-        <div class="service-block">
-            <h5>Людям</h5>
-            <p>Просто заказать, оплатить и легко управлять заказом на сайте или в мобильном приложении</p>
-            <div class="service">
-                <h4>Отправить письмо</h4>
-                <p>Письма или документы до 100 листов А4</p>
-            </div>
-            <div class="service">
-                <h4>Отправить посылку</h4>
-                <p>Для отправлений до 30 кг от адреса до адреса</p>
-                <p class="price">Акция</p>
-            </div>
-            <div class="service">
-                <h4>Перевезти вещи</h4>
-                <p>Для отправлений от 30 кг, переездов и доставки множества вещей</p>
-                <p class="price">от 2050 рублей!</p>
+    <section>
+        <div class="containerp">
+            <div class="service-block">
+                <h5>Людям</h5>
+                <p>Просто заказать, оплатить и легко управлять заказом на сайте или в мобильном приложении</p>
+                <div class="service">
+                    <h4>Отправить письмо</h4>
+                    <p>Письма или документы до 100 листов А4</p>
+                </div>
+                <div class="service">
+                    <h4>Отправить посылку</h4>
+                    <p>Для отправлений до 30 кг от адреса до адреса</p>
+                    <p class="price">Акция</p>
+                </div>
+                <div class="service">
+                    <h4>Перевезти вещи</h4>
+                    <p>Для отправлений от 30 кг, переездов и доставки множества вещей</p>
+                    <p class="price">от 2050 рублей!</p>
+                </div>
             </div>
         </div>
-    <div class="containerb">
-        <div class="business-block">
-            <h5>Бизнесу</h5 >
-            <p>Перевозки по РФ и в страны ЕАЭС и складские услуги для организаций и предпринимателей. Персональные предложения. Скидки и привилегии по подписке.</p>
-            <div class="service">
-                <h4>Отправить документы</h4>
-                <p>Договоры, закрывающие документы или мелкие грузы в конверте.</p>
-            </div>
-            <div class="service">
-                <h4>Отправить сборным грузом</h4>
-                <p>Экономичнее выделенного транспорта. По России и за рубеж. Для любых грузов от 1 кг.</p>
-                <p class="price">от 771 ₽ за 1 день</p>
-            </div>
-            <div class="service">
-                <h4>Перевезти выделенным транспортом</h4>
-                <p>Надежность и скорость. Отдельная машина, ваш маршрут, без перегрузов на терминалах.</p>
-                <p class="price">Специальные акций доступны!</p>
+        <div class="containerb">
+            <div class="business-block">
+                <h5>Бизнесу</h5 >
+                <p>Перевозки по РФ и в страны ЕАЭС и складские услуги для организаций и предпринимателей. Персональные предложения. Скидки и привилегии по подписке.</p>
+                <div class="service">
+                    <h4>Отправить документы</h4>
+                    <p>Договоры, закрывающие документы или мелкие грузы в конверте.</p>
+                </div>
+                <div class="service">
+                    <h4>Отправить сборным грузом</h4>
+                    <p>Экономичнее выделенного транспорта. По России и за рубеж. Для любых грузов от 1 кг.</p>
+                    <p class="price">от 771 ₽ за 1 день</p>
+                </div>
+                <div class="service">
+                    <h4>Перевезти выделенным транспортом</h4>
+                    <p>Надежность и скорость. Отдельная машина, ваш маршрут, без перегрузов на терминалах.</p>
+                    <p class="price">Специальные акций доступны!</p>
+                </div>
             </div>
         </div>
         <div class="containerc">
@@ -144,171 +143,133 @@
                     <p>Кросс-докинг, транзитное хранение, перепалетирование с использованием ваших кодов и номенклатуры</p>
                 </div>
             </div>
-            <div class="containerd">
-                <div class="business-block">
-                    <h5>Интернет-магазинам</h5 >
-                    <p>Наложенный платеж, множество способов интеграции, широкая география</p>
-                    <div class="service">
-                        <h4>Доставить покупку</h4>
-                        <p>275 пунктов самовывоза, 700 городов доставки</p>
-                    </div>
-                    <div class="service">
-                        <h4>Отправить в маркетплейс</h4>
-                            <p>
-                                Доставим товар в Ozon, Wildberries и другие маркетплейсы России — точно в срок. Проверим упаковку и маркировку
-                            </p>
-                        <p class="price">Акции</p>
-                    </div>
-                    <div class="service">
-                        <h4>Фулфилмент</h4>
-                        <p>  Хранение по вашей номенклатуре, подготовка (co-packing, маркировка), сортировка и доставка</p>
-                   
-                    </div>
+        </div>
+        <div class="containerd">
+            <div class="business-block">
+                <h5>Интернет-магазинам</h5>
+                <p>Наложенный платеж, множество способов интеграции, широкая география</p>
+            </div>
+            <div class="service">
+                <h4>Доставить покупку</h4>
+                <p>275 пунктов самовывоза, 700 городов доставки</p>
+            </div>
+            <div class="service">
+                <h4>Отправить в маркетплейс</h4>
+                <p> Доставим товар в Ozon, Wildberries и другие маркетплейсы России — точно в срок. Проверим упаковку и маркировку</p>
+                <p class="price">Акции</p>
+            </div>
+            <div class="service">
+                <h4>Фулфилмент</h4>
+                <p>  Хранение по вашей номенклатуре, подготовка (co-packing, маркировка), сортировка и доставка</p>
+            </div>
+        </div>
+    </section>
+    <div id="support-block" class="block help-block">
+        <h3>Нужна помощь?</h3>
+        <p>Мы готовы помочь вам с грузоперевозками по России! Вот несколько советов:</p>
+        <p><strong>1. Правильная упаковка:</strong> Убедитесь, что ваши грузы надежно упакованы. Используйте картоны, пузырчатую пленку и стрейч-пленку для предотвращения повреждений.</p>
+        <p><strong>2. Документы:</strong> Подготовьте все необходимые документы для отправки грузов, включая накладные и акты приема-передачи.</p>
+        <p><strong>3. Сроки доставки:</strong> Ознакомьтесь с стандартными сроками доставки в зависимости от расстояния между городами. Обычно доставка занимает от 1 до 7 дней.</p>
+        <p><strong>4. Служба поддержки:</strong> Если у вас есть вопросы, наша служба поддержки всегда готова помочь. Позвоните по номеру: <strong>8-800-555-35-35</strong> или напишите на электронную почту: <strong>ARLogistik@popa.com</strong>.</p>
+    </div>
+    <div class="info-blocks">
+        <div class="info-block">
+            <h3>С кем мы работаем</h3>
+            <ul>
+                <li>Коммерческие организации (ООО, АО, ПАО и другие формы)</li>
+                <li>Некоммерческие организации (НКО)</li>
+                <li>Индивидуальные предприниматели (ИП)</li>
+                <li>Строительные организации</li>
+                <li>Интернет-магазины</li>
+                <li>Сетевые магазины, супермаркеты, гипермаркеты</li>
+                <li>Маркетплейсы (WB, Ozon, Маркет), оптовые поставщики</li>
+                <li>Аптеки, медицинские учреждения</li>
+                <li>Промышленные предприятия</li>
+                <li>Курьерские службы, логистические компании</li>
+                <li>Фермерские хозяйства и др.</li>
+            </ul>
+        </div>     
+        <div class="info-block">
+            <h3>Порядок оплаты и сотрудничества</h3>
+            <ul>
+                <li>Грузоперевозки производятся на долгосрочной основе или разово</li>
+                <li>Стоимость услуг формируется с НДС</li>
+                <li>По отдельному согласованию возможна оплата наличными (без НДС)</li>
+                <li>Расчет стоимости производится индивидуально «ниже рынка»</li>
+                <li>Постоянным клиентам предоставляется отсрочка платежей на 30 дней и скидки от 10%</li>
+                <li>Персональный возврат денежных средств по завершению перевозки</li>
+                <li>Страхование грузов по минимальным тарифам</li>
+            </ul>
+        </div>     
+        <div class="info-block">
+            <h3>Организация логистики и автопарк</h3>
+            <ul>
+                <li>Работаем строго по стандартам заказчика с учетом типа и специфики перевозимого груза</li>
+                <li>Оснащение материально-технической базы по запросу клиента (униформа, логотипы и т.д.)</li>
+                <li>Грузоперевозки осуществляются по Москве, Московской области, внутри и между регионами России</li>
+                <li>При проработке маршрута учитывается количество точек разгрузки/выгрузки и расстояние между ними</li>
+                <li>Доставка грузов может производиться в любое время суток (дневные и ночные часы)</li>
+                <li>Сборные перевозки выполняются «догрузами» от 500 кг</li>
+                <li>Все автомобили оснащены пропусками для проезда в пределах МКАД, ТТК, СК</li>
+                <li>Автопарк по грузоподъемности: каблук, портер, газель, 3 тонник, 5 тонник, 10 тонник, фура 20 тонн, сцепки, джамбо</li>
+                <li>Автопарк по типу кузова: тент, рефрижератор, борт (шаланда), гидроборт, изотерма</li>
+                <li>Выполняем негабаритные грузоперевозки тралами, спецтехникой, согласовываем маршрут в ГИБДД</li>
+            </ul>
+        </div>
+        <div class="request-block">
+            <h3>Офрормите заказ</h3>
+            <p>В ближайшее время наш менеджер перезвонит вам для уточнения деталей сотрудничества.</p>
+            <input type="text" class="company-name-input" placeholder="Введите название компании"></input>
+            <input type="text" class="contact-name-input" placeholder="Введите имя контакного лица"></input>
+            <input type="text" class="phone-input" placeholder="Введите свой номер телефона"></input>
+            <input type="text" class="email-input" placeholder="Введите адрес электронной почты"></input>
+            <input type="text" class="cargo-name-input" placeholder="Введите название груза"></input>
+            <input type="text" class="cargo-weight-input" placeholder="Введите примерный вес груза (кг)"></input>
+            <input type="text" class="dimensions-input" placeholder="Введите характеристики Д-Ш-В (длина-ширина-высота)"></input>
+            <input type="text" class="required-transport-input" placeholder="Введите рекомендемый тип транспорта"></input>
+            <button type="button" class="submit-order">Оформить заказ</button>
+            </form>
+        </div>
+        <section class="reviews-section">
+            <h3>Оставить отзыв</h3>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="reviewer-name">Имя *</label>
+                    <input type="text" id="reviewer-name" placeholder="Ваше имя" required>
+                </div>  
+                <div class="form-group">
+                    <label for="review-rating">Рейтинг *</label>
+                    <select id="review-rating" required>
+                        <option value="">Выберите рейтинг</option>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                    </select>
                 </div>
-</section>
-                <div  id="support-block" class="block help-block">
-                    <h3>Нужна помощь?</h3>
-                    <p>Мы готовы помочь вам с грузоперевозками по России! Вот несколько советов:</p>
-                    <p><strong>1. Правильная упаковка:</strong> Убедитесь, что ваши грузы надежно упакованы. Используйте картоны, пузырчатую пленку и стрейч-пленку для предотвращения повреждений.</p>
-                    <p><strong>2. Документы:</strong> Подготовьте все необходимые документы для отправки грузов, включая накладные и акты приема-передачи.</p>
-                    <p><strong>3. Сроки доставки:</strong> Ознакомьтесь с стандартными сроками доставки в зависимости от расстояния между городами. Обычно доставка занимает от 1 до 7 дней.</p>
-                    <p><strong>4. Служба поддержки:</strong> Если у вас есть вопросы, наша служба поддержки всегда готова помочь. Позвоните по номеру: <strong>8-800-555-35-35</strong> или напишите на электронную почту: <strong>ARLogistik@popa.com</strong>.</p>
+                <div class="form-group">
+                    <label for="review-comment">Отзыв *</label>
+                    <textarea id="review-comment" placeholder="Напишите ваш отзыв" rows="4" required></textarea>
                 </div>
-                <div class="info-blocks">
-
-                    <div class="info-block">
-                        <h3>С кем мы работаем</h3>
-                        <ul>
-                            <li>Коммерческие организации (ООО, АО, ПАО и другие формы)</li>
-                            <li>Некоммерческие организации (НКО)</li>
-                            <li>Индивидуальные предприниматели (ИП)</li>
-                            <li>Строительные организации</li>
-                            <li>Интернет-магазины</li>
-                            <li>Сетевые магазины, супермаркеты, гипермаркеты</li>
-                            <li>Маркетплейсы (WB, Ozon, Маркет), оптовые поставщики</li>
-                            <li>Аптеки, медицинские учреждения</li>
-                            <li>Промышленные предприятия</li>
-                            <li>Курьерские службы, логистические компании</li>
-                            <li>Фермерские хозяйства и др.</li>
-                        </ul>
-                    </div>
-                
-                    <div class="info-block">
-                        <h3>Порядок оплаты и сотрудничества</h3>
-                        <ul>
-                            <li>Грузоперевозки производятся на долгосрочной основе или разово</li>
-                            <li>Стоимость услуг формируется с НДС</li>
-                            <li>По отдельному согласованию возможна оплата наличными (без НДС)</li>
-                            <li>Расчет стоимости производится индивидуально «ниже рынка»</li>
-                            <li>Постоянным клиентам предоставляется отсрочка платежей на 30 дней и скидки от 10%</li>
-                            <li>Персональный возврат денежных средств по завершению перевозки</li>
-                            <li>Страхование грузов по минимальным тарифам</li>
-                        </ul>
-                    </div>
-                
-                    <div class="info-block">
-                        <h3>Организация логистики и автопарк</h3>
-                        <ul>
-                            <li>Работаем строго по стандартам заказчика с учетом типа и специфики перевозимого груза</li>
-                            <li>Оснащение материально-технической базы по запросу клиента (униформа, логотипы и т.д.)</li>
-                            <li>Грузоперевозки осуществляются по Москве, Московской области, внутри и между регионами России</li>
-                            <li>При проработке маршрута учитывается количество точек разгрузки/выгрузки и расстояние между ними</li>
-                            <li>Доставка грузов может производиться в любое время суток (дневные и ночные часы)</li>
-                            <li>Сборные перевозки выполняются «догрузами» от 500 кг</li>
-                            <li>Все автомобили оснащены пропусками для проезда в пределах МКАД, ТТК, СК</li>
-                            <li>Автопарк по грузоподъемности: каблук, портер, газель, 3 тонник, 5 тонник, 10 тонник, фура 20 тонн, сцепки, джамбо</li>
-                            <li>Автопарк по типу кузова: тент, рефрижератор, борт (шаланда), гидроборт, изотерма</li>
-                            <li>Выполняем негабаритные грузоперевозки тралами, спецтехникой, согласовываем маршрут в ГИБДД</li>
-                        </ul>
-                    </div>
-                
-                </div>
-
-
-                <div class="request-block">
-                    <h3>Офрормите заказ</h3>
-                    <p>В ближайшее время наш менеджер перезвонит вам для уточнения деталей сотрудничества.</p>
-                    <input type="text" class="company-name-input" placeholder="Введите название компании"></input>
-                    <input type="text" class="contact-name-input" placeholder="Введите имя контакного лица"></input>
-                    <input type="text" class="phone-input" placeholder="Введите свой номер телефона"></input>
-                    <input type="text" class="email-input" placeholder="Введите адрес электронной почты"></input>
-                    <input type="text" class="cargo-name-input" placeholder="Введите название груза"></input>
-                    <input type="text" class="cargo-weight-input" placeholder="Введите примерный вес груза (кг)"></input>
-                    <input type="text" class="dimensions-input" placeholder="Введите характеристики Д-Ш-В (длина-ширина-высота)"></input>
-                    <input type="text" class="required-transport-input" placeholder="Введите рекомендемый тип транспорта"></input>
-                    <button type="button" class="submit-order">Оформить заказ</button>
-                    </form>
-                </div>
-                <section class="reviews-section">
-                    <h3>Оставить отзыв</h3>
-                    <form id="review-form">
-                        <div class="form-group">
-                            <label for="reviewer-name">Имя *</label>
-                            <input type="text" id="reviewer-name" placeholder="Ваше имя" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="review-rating">Рейтинг *</label>
-                            <select id="review-rating" required>
-                                <option value="">Выберите рейтинг</option>
-                                <option value="5">⭐⭐⭐⭐⭐</option>
-                                <option value="4">⭐⭐⭐⭐</option>
-                                <option value="3">⭐⭐⭐</option>
-                                <option value="2">⭐⭐</option>
-                                <option value="1">⭐</option>
-                            </select>
-                        </div>
-                
-                        <div class="form-group">
-                            <label for="review-comment">Отзыв *</label>
-                            <textarea id="review-comment" placeholder="Напишите ваш отзыв" rows="4" required></textarea>
-                        </div>
-                
-                        <button type="submit">Отправить</button>
-                    </form>
-                
-                    <div id="reviews-list" class="reviews-list">
-                        <h4>Отзывы</h4>
-                       
-                    </div>
-                </section>
-                
-
-                <footer>
-                    <h4>ARLogistik-Грузоперевозки по России</h4>
+                <button type="submit">Отправить</button>
+            </form>
+            <div id="reviews-list" class="reviews-list">
+                <h4>Отзывы</h4>     
+            </div>
+        </section>
+            <footer>
+                <h4>ARLogistik-Грузоперевозки по России</h4>
                     <p>© 2024 Все права защищены</p>
-                    <div class="socials">
-                        <button type="button">Facebook</button>
-                        <button type="button">Instagram</button>
-                        <button type="button">Twitter</button>
-                        <button type="button">VK</button>
-                    </div>
-                </footer>
-
-                <script src="script.js"></script>
-                <script src="./navigation.js"></script>
-                <script>
-                    function saveOrderData(event) {
-                        event.preventDefault(); // Предотвращаем стандартное поведение формы
-                        
-                        // Сохраняем данные из формы в localStorage
-                        localStorage.setItem('company-name', document.getElementById('company-name').value);
-                        localStorage.setItem('contact-name', document.getElementById('contact-name').value);
-                        localStorage.setItem('phone', document.getElementById('phone').value);
-                        localStorage.setItem('email', document.getElementById('email').value);
-                        localStorage.setItem('cargo-name', document.getElementById('cargo-name').value);
-                        localStorage.setItem('weight', document.getElementById('weight').value);
-                        localStorage.setItem('dimensions', document.getElementById('dimensions').value);
-                        localStorage.setItem('transport', document.getElementById('transport').value);
-                        localStorage.setItem('conditions', document.getElementById('conditions').value);
-                        // Для файлов нужно отдельное сохранение или обработка
-                    
-                        // Перенаправляем на страницу заказов
-                        window.location.href = 'order.html'; // Убедитесь, что путь к файлу правильный
-                    }
-                    </script>
-              
-
- 
+                <div class="socials">
+                    <button type="button">Facebook</button>
+                    <button type="button">Instagram</button>
+                    <button type="button">Twitter</button>
+                    <button type="button">VK</button>
+                </div>
+            </footer>
+    </div>
+    <script src="./script.js"></script>
+    <script src="./navigation.js"></script>
 </body>
 </html>

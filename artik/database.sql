@@ -1,7 +1,7 @@
 CREATE TABLE users_table (
 	user_id serial primary key,
-	name varchar(64) not null,
-    email varchar(64) not null,
+	name unique varchar(64) not null,
+    email varchar(64) unique not null,
 	password varchar(128) not null
 );
 

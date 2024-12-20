@@ -27,13 +27,11 @@ function calculateCost() {
 function scrollToSupport() {
 
 document.getElementById('support-block').scrollIntoView({
-behavior: 'smooth' 
-});
+        behavior: 'smooth' 
+    });
 }
+
 //Валадиция формы обратной связи
-
-
-
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('click', function() {
@@ -42,10 +40,7 @@ buttons.forEach(button => {
     });
 }); 
 
-
-
 //статус заказов
-
 function notifyUser(message) {
     const notification = document.createElement('div');
     notification.className = 'notification';
@@ -72,8 +67,6 @@ notifyUser("Ваш заказ был успешно оформлен!");
 // // После загрузки данных
 // hideLoader();
 
-
-
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
@@ -82,7 +75,6 @@ if (navigator.geolocation) {
         // Логика для автозаполнения города или адреса
     });
 }
-
 
 const revievForm = document.getElementById('review-form');
 if (revievForm) {
@@ -134,174 +126,165 @@ if (revievForm) {
 //     }
 // });
 
-
-
-
-    const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
-    const authModal = document.getElementById('authModal');
-    if (authModal) {
-        const closeAuthModalButton = authModal.querySelector('.close');
-    
-        const registerModal = document.getElementById('registerModal');
-        const toggleToRegisterButton = document.getElementById('toggleToRegister');
-        const closeRegisterModalButton = registerModal.querySelector('.close');
+const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
+const authModal = document.getElementById('authModal');
+if (authModal) {
+    const closeAuthModalButton = authModal.querySelector('.close');
+    const registerModal = document.getElementById('registerModal');
+    const toggleToRegisterButton = document.getElementById('toggleToRegister');
+    const closeRegisterModalButton = registerModal.querySelector('.close');
         
-       
-    
-        // Открытие и закрытие модальных окон
+    // Открытие и закрытие модальных окон
         
-        openAuthModalButtons.forEach(button => {
-            button.onclick = () => {
-                authModal.style.display = 'block';
-                registerModal.style.display = 'none'; // Закрыть окно регистрации при открытии входа
-            };
-        });
-    
-        closeAuthModalButton.onclick = () => {
-            authModal.style.display = 'none';
+    openAuthModalButtons.forEach(button => {
+        button.onclick = () => {
+            authModal.style.display = 'block';
+            registerModal.style.display = 'none'; // Закрыть окно регистрации при открытии входа
         };
+    });
     
-        toggleToRegisterButton.onclick = (e) => {
-            e.preventDefault();
-            authModal.style.display = 'none'; // Закрыть окно входа
-            registerModal.style.display = 'block'; // Открыть окно регистрации
-        };
-    
-        closeRegisterModalButton.onclick = () => {
-            registerModal.style.display = 'none';
-        };
-    }
-
-    const submitRegistration = document.getElementById('submitRegistration');
-
-    // Регистрация пользователя
-    if (submitRegistration) {
-        submitRegistration.addEventListener('click', async function(event) {
-            event.preventDefault();
-            const name = document.getElementById('reg-username').value;
-            const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-    
-            
-            const response = await fetch('http://localhost:5000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({name, email, password})
-            });
-            const data = await response.json();
-                
-            if (data) {
-                registerModal.style.display = 'none';
-            }
-            console.log(data)
-        });
-    }
-    
-    const authForm = document.getElementById('authForm');
-    // Вход пользователя
-    if( authForm ) {
-        authForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const email = document.getElementById('user-email').value;
-            const password = document.getElementById('password').value;
-        
-            const response = await fetch('http://localhost:5000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({email, password})
-                })
-                const data = await response.json();
-                
-                if (data) {
-                    authModal.style.display = 'none';
-    
-                    window.localStorage.setItem('token', data.token);
-                    window.localStorage.setItem('email', data.email);
-                    window.localStorage.setItem('role', data.role);
-                } 
-                console.log(data);
-        });
+    closeAuthModalButton.onclick = () => {
+        authModal.style.display = 'none';
     };
     
+    toggleToRegisterButton.onclick = (e) => {
+        e.preventDefault();
+        authModal.style.display = 'none'; // Закрыть окно входа
+        registerModal.style.display = 'block'; // Открыть окно регистрации
+    };
+    
+    closeRegisterModalButton.onclick = () => {
+        registerModal.style.display = 'none';
+    };
+}
 
-        const submitOrderButton = document.querySelector('.submit-order');
-        // Оформление заказа
-        if (submitOrderButton) {
-            submitOrderButton.addEventListener('click', async () => {
-                const user_id = 1; // Здесь вы можете подставить актуальный ID пользователя
-                const company_name = document.querySelector('.company-name-input').value;
-                const contact_name = document.querySelector('.contact-name-input').value;
-                const phone = document.querySelector('.phone-input').value;
-                const email = document.querySelector('.email-input').value;
-                const cargo_name = document.querySelector('.cargo-name-input').value;
-                const cargo_weight = document.querySelector('.cargo-weight-input').value;
-                const dimensions = document.querySelector('.dimensions-input').value;
-                const required_transport = document.querySelector('.required-transport-input').value;
-
-                const response = await fetch('http://localhost:5000/addorder', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    body: JSON.stringify({ user_id, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport })
-                });
-
-                const data = await response.json();
-
-                // Вывод сообщения о результате
-                alert(data.message);
-            });
+// Регистрация пользователя
+const submitRegistration = document.getElementById('submitRegistration');
+if (submitRegistration) {
+    submitRegistration.addEventListener('click', async function(event) {
+        event.preventDefault();
+        const name = document.getElementById('reg-username').value;
+        const email = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+    
+            
+        const response = await fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name, email, password})
+        });
+        const data = await response.json();
+                
+        if (data) {
+            registerModal.style.display = 'none';
         }
+        console.log(data)
+    });
+}
+    
+const authForm = document.getElementById('authForm');
+// Вход пользователя
+if( authForm ) {
+    authForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const email = document.getElementById('user-email').value;
+        const password = document.getElementById('password').value;
+    
+        const response = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({email, password})
+        })
+        const data = await response.json()
+            
+        if (data) {
+            authModal.style.display = 'none';
 
-        async function fetchAllOrders() {
-            const response = await fetch('http://localhost:5000/getorders', {
-                method: 'GET'
-            });
+            window.localStorage.setItem('token', data.token);
+            window.localStorage.setItem('email', data.email);
+            window.localStorage.setItem('role', data.role);
+        } 
+        console.log(data)
+    })
+}
+    
+// Оформление заказа
+const submitOrderButton = document.querySelector('.submit-order');
+if (submitOrderButton) {
+    submitOrderButton.addEventListener('click', async () => {
+        const user_id = 1; // Здесь вы можете подставить актуальный ID пользователя
+        const company_name = document.querySelector('.company-name-input').value;
+        const contact_name = document.querySelector('.contact-name-input').value;
+        const phone = document.querySelector('.phone-input').value;
+        const email = document.querySelector('.email-input').value;
+        const cargo_name = document.querySelector('.cargo-name-input').value;
+        const cargo_weight = document.querySelector('.cargo-weight-input').value;
+        const dimensions = document.querySelector('.dimensions-input').value;
+        const required_transport = document.querySelector('.required-transport-input').value;
+
+        const response = await fetch('http://localhost:5000/addorder', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ user_id, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport })
+        });
+
+        const data = await response.json();
+
+        // Вывод сообщения о результате
+        alert(data.message);
+    });
+}
+
+async function fetchAllOrders() {
+    const response = await fetch('http://localhost:5000/getorders', {
+        method: 'GET'
+    });
         
-            const data = await response.json();
-            const orderCardContainer = document.querySelector('.order-card-container'); // Контейнер для заказов
+    const data = await response.json();
+    const orderCardContainer = document.querySelector('.order-card-container'); // Контейнер для заказов
         
-            // Очистка контейнера перед добавлением новых заказов
-            orderCardContainer.innerHTML = '';
+    // Очистка контейнера перед добавлением новых заказов
+    orderCardContainer.innerHTML = '';
         
-            if (data && data.allOrders && data.allOrders.length > 0) {
-                data.allOrders.forEach(order => {
-                    const orderCard = document.createElement('div');
-                    orderCard.className = 'order-card';
-                    orderCard.innerHTML = `
-                        <h3>Заказ № ${order.order_id}</h3>
-                        <div class="order-details">
-                            <p>Название компании: ${order.company_name}</p>
-                            <p>Контактное лицо: ${order.contact_name}</p>
-                            <p>Телефон: ${order.phone}</p>
-                            <p>Email: ${order.email}</p>
-                            <p>Название груза: ${order.cargo_name}</p>
-                            <p>Вес груза: ${order.cargo_weight} кг</p>
-                            <p>Размеры: ${order.dimensions}</p>
-                            <p>Тип транспорта: ${order.required_transport}</p>
-                        </div>
-                    `;
-                    orderCardContainer.appendChild(orderCard);
-                });
-            } else {
-                orderCardContainer.innerHTML = '<p>Нет заказов.</p>';
-            }
-        }
-        
-        const showOrdersButton = document.querySelector('.show-orders-button');
-        // Вызов функции для получения заказов по нажатию кнопки
-        if (showOrdersButton) {
-            showOrdersButton.addEventListener('click', fetchAllOrders);
-        }
-    // // Закрытие модальных окон при нажатии вне их
-    // window.onclick = function(event) {
-    //     if ( event.target == authModal || event.target == registerModal) {
-    //         authModal.style.display = 'none';
-    //         registerModal.style.display = 'none';
-    //     }
-    // };
+    if (data && data.allOrders && data.allOrders.length > 0) {
+        data.allOrders.forEach(order => {
+            const orderCard = document.createElement('div');
+            orderCard.className = 'order-card';
+            orderCard.innerHTML = `
+                <h3>Заказ № ${order.order_id}</h3>
+                <div class="order-details">
+                    <p>Название компании: ${order.company_name}</p>
+                    <p>Контактное лицо: ${order.contact_name}</p>
+                    <p>Телефон: ${order.phone}</p>
+                    <p>Email: ${order.email}</p>
+                    <p>Название груза: ${order.cargo_name}</p>
+                    <p>Вес груза: ${order.cargo_weight} кг</p>
+                    <p>Размеры: ${order.dimensions}</p>
+                    <p>Тип транспорта: ${order.required_transport}</p>
+                </div>
+            `;
+            orderCardContainer.appendChild(orderCard);
+         });
+    } else {
+        orderCardContainer.innerHTML = '<p>Нет заказов.</p>';
+    }
+}
+// Вызов функции для получения заказов по нажатию кнопки
+const showOrdersButton = document.querySelector('.show-orders-button');
+if (showOrdersButton) {
+    showOrdersButton.addEventListener('click', fetchAllOrders);
+}
+// // Закрытие модальных окон при нажатии вне их
+// window.onclick = function(event) {
+//     if ( event.target == authModal || event.target == registerModal) {
+//         authModal.style.display = 'none';
+//         registerModal.style.display = 'none';
+//     }
+// };
 
