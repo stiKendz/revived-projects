@@ -14,9 +14,15 @@
     </header>
     <main class="main">
         <div class="user-profile-container">
-            <div class="user-info-container">
-                <div class="user-item user-name">Имя пользователя:</div>
-                <div class="user-item user-email">Почта пользователя:</div>
+            <div class="user-profile" id="user-profile">
+                <h2>Профиль</h2>
+                <p>Добро пожаловать, <span id="profileUsername"></span>!</p>
+                <div class="user-name-output"></div>
+                <input type="text" id="user-name" placeholder="Измените ваше имя">
+                <div class="user-email-output"></div>
+                <input type="email" id="user-email" placeholder="Измените вашу почту">
+                <button id="saveProfile">Сохранить профиль</button>
+                <button id="logoutButton">Выйти</button>
             </div>
         </div>
     </main>

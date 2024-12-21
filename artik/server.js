@@ -210,3 +210,63 @@ app.get('/getorders', async (req, res) => {
         client.release();
     }
 });
+
+// вывод информации о пользователе
+app.get('/userinfo', async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    const client = await pool.connect();
+    
+    if(!token) {
+        return res.status(401).json({message: 'Вы не авторизованы'});
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+
+        const response = await client.query(
+            'SELECT * FROM users_table where user_id = $1', [userId]
+        )
+        const result = response.rows;
+
+        res.status(201).json({
+            message: 'Информация о пользователе',
+            userInfo: result
+        });
+    } catch (err) {
+        console.error('Ошибка вывода информации о пользователе из-за ошибки в запросе ' + err);
+        res.status(500).send('Ошибка вывода информации о пользователе из-за ошибки в запросе');
+    } finally {
+        client.release();
+    }
+});
+
+app.put('/updateuser', async (req, res) => {
+    const {name, email} = req.body;
+    const token = req.headers.authorization?.split(' ')[1];
+    const client = await pool.connect();
+
+    if(!token) {
+        return res.status(401).json({message: 'Пользователь не авторизован'});
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+        // имя
+        const updateUserName = await client.query(
+            'UPDATE users_table SET name = $2 WHERE user_id = $1', [userId, name]
+        )
+        // адрес электронной почты
+        const updateUserEmail = await client.query(
+            'UPDATE users_table SET email = $2 WHERE user_id = $1', [userId, email]
+        )
+
+        res.status(200).json({message: 'Обновленные данные сохранены'});
+    } catch (err) {
+        console.error('Ошибка обновления информации о пользователе из-за ошибки в запросе' + err);
+        res.status(500).send('Ошибка обновления информации о пользователе из-за ошибки в запросе');
+    } finally {
+        client.release();
+    }
+});

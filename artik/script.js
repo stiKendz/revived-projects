@@ -288,3 +288,107 @@ if (showOrdersButton) {
 //     }
 // };
 
+// Просмотр профиля пользователя
+const profileContainer = document.getElementById('user-profile');
+async function loadProfile(){
+    const name = document.querySelector('.user-name-output');
+    const email = document.querySelector('.user-email-output');
+    const usernameSpan = document.getElementById('profileUsername');
+
+    const token = window.localStorage.getItem('token');
+
+    const response = await fetch('http://localhost:5000/userinfo', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    const data = await response.json();
+
+    if(data && data.userInfo && data.userInfo.length) {
+        const userInfo = data.userInfo[0];
+
+        usernameSpan.textContent = userInfo.name ?? 'Нет данных';
+
+        // Заполнение меток
+        name.innerHTML = `<p>Имя: ${userInfo.name || 'Нет данных'}</p>`;
+        email.innerHTML = `<p> Адрес электронной почты: ${userInfo.email || 'Нет данных'}</p>`;
+
+        // Заполнение input'ов, если они пустые
+        const nameInput = document.getElementById('user-name');
+        const emailInput = document.getElementById('user-email');
+
+        // Заполнение полей ввода
+        nameInput.value = nameInput.value || userInfo.name || '';
+        emailInput.value = emailInput.value || userInfo.email || '';
+    }
+
+    console.log(data);
+}
+
+// Изменение профля пользователя
+const saveProfile = document.getElementById('saveProfile');
+if (saveProfile) {
+    saveProfile.addEventListener('click', async () => {
+        const name = document.getElementById('user-name').value;
+        const email = document.getElementById('user-email').value;
+        const usernameSpan = document.getElementById('profileUsername');
+    
+        const token = window.localStorage.getItem('token');
+    
+        const response = await fetch('http://localhost:5000/updateuser', {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({name, email})
+        })
+        const data = await response.json();
+    
+        // обновление окна профиля
+        if(data) {
+            loadProfile();
+        }
+        console.log(data);
+    })
+}
+
+//Кнопка выхода из аккаунта
+const logoutButton = document.getElementById('logoutButton');
+if (logoutButton) {
+    logoutButton.addEventListener('click', function() {
+        document.getElementById('user-profile').style.display = 'none';
+    
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('email');
+        window.localStorage.removeItem('role');
+        
+    
+        alert('Вы вышли из аккаунта');
+    });
+}
+
+const checkAuthorize = async () => {
+    const logoutButton = document.getElementById('logoutButton');
+    const logInButton = document.getElementById('log-in-button');
+
+    const token = window.localStorage.getItem('token');
+    const profileWindow = document.getElementById('user-profile');
+        
+    if (token && token !== 'undefined') {
+        loadProfile();
+    } else {
+        profileWindow ? profileWindow.style.display = 'none': null;
+        alert('Вы не вошли в аккаунт');
+    }
+        
+    // logoutButton.addEventListener('click', () => {
+    //     window.location.reload()
+    // });
+    // logInButton.addEventListener('click', () => {
+    //     setTimeout(() => window.location.reload(), 1000)
+    // });
+}  
+window.addEventListener('DOMContentLoaded', checkAuthorize)
