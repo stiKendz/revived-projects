@@ -10,7 +10,8 @@ if (ordersButton) {
 
 if (profileButton) {
     profileButton.addEventListener('click', () => {
-        window.location.href = './profile.html';
+        const token = window.localStorage.getItem('token');
+        !token ? alert('Вы не вошли в аккаунт') : window.location.href = './profile.html';
     });
 };
 

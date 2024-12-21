@@ -361,15 +361,6 @@ const checkAuthorize = async () => {
 }  
 window.addEventListener('DOMContentLoaded', checkAuthorize)
 
-// Вы не вошли в аккаунт
-const profileButton = document.getElementById('profile-button');
-if (profileButton) {
-    profileButton.addEventListener('click', async () => {
-        const token = window.localStorage.getItem('token');
-        !token ? alert('Вы не вошли в аккаунт') : null;
-    });
-};
-
 // Отправление отзыва 
 const sendReview = document.querySelector('.send-review-button');
 if (sendReview) {
@@ -380,9 +371,7 @@ if (sendReview) {
 
         if (!token) {
             alert('Для этого действия требуется авторизация')
-        }
-
-        if(!rating || !comment) {
+        } else if (!rating || !comment) {
             alert('Пожалуйста, заполните все поля')
         }
 
@@ -396,9 +385,7 @@ if (sendReview) {
         })
         const data = await response.json();
 
-        if (data === true) {
-            window.location.reload();
-        }
+        window.location.reload();
 
         console.log(data);
     });
