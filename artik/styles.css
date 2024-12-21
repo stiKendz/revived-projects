@@ -145,7 +145,6 @@ nav button:hover {
 input, select, button {
     width: 100%;
     padding: 10px;
-    margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
@@ -180,8 +179,6 @@ button:hover {
 
 input, select, button {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
@@ -378,13 +375,9 @@ footer .socials a {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px; 
-}
 
 .form-group label {
     display: block; 
-    margin-bottom: 5px; 
     font-weight: bold;
 }
 
@@ -420,11 +413,13 @@ footer .socials a {
 
 
 .reviews-section {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    width: 100%;
     padding: 20px;
+
+    border: 1px solid #ccc;
     border-radius: 8px;
-    margin-top: 20px;
+
+    background-color: #f9f9f9;
 }
 
 .reviews-section h3 {
@@ -432,8 +427,9 @@ footer .socials a {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.form-group textarea,
+.form-group select {
+    max-width: 100%;
 }
 
 label {
@@ -447,7 +443,6 @@ input[type="email"],
 select,
 textarea {
     width: 100%;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -481,7 +476,6 @@ button:hover {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
-    margin-top: 10px;
 }
 
 .review-item h5 {
@@ -658,3 +652,52 @@ footer .socials a {
     outline: #FFDBA8; 
 }
 
+
+
+/* форма отправления отзыва */
+#review-form {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px 150px 100px;
+
+    align-items: center;
+    justify-items: center;
+}
+#review-form .form-group #review-rating {
+    min-width: 250px;
+
+    text-align: center;
+}
+#review-form .form-group #review-comment {
+    min-width: 250px;
+
+    padding: 2px 2px;
+    margin: 0;
+}
+#review-form .form-group #review-comment::placeholder {
+    text-align: center;
+}
+
+#review-form button {
+    width: 200px;
+    height: 50px;
+
+    border: 0;
+    border-radius: 0px;
+    background-color: transparent;
+    outline:#42AAFF;
+    color: #42AAFF;
+
+    font-size: 16px;
+    font-weight: 900;
+
+    cursor: pointer;
+}
+#review-form button:hover,
+#review-form button:focus {
+    background-color: transparent;
+    color: #FFDBA8;
+  
+    outline: 4px solid #FFDBA8;
+    transition: 0.15s ease-in;
+}

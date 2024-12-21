@@ -232,13 +232,8 @@
         </div>
         <section class="reviews-section">
             <h3>Оставить отзыв</h3>
-            <form id="review-form">
+            <div id="review-form">
                 <div class="form-group">
-                    <label for="reviewer-name">Имя *</label>
-                    <input type="text" id="reviewer-name" placeholder="Ваше имя" required>
-                </div>  
-                <div class="form-group">
-                    <label for="review-rating">Рейтинг *</label>
                     <select id="review-rating" required>
                         <option value="">Выберите рейтинг</option>
                         <option value="5">⭐⭐⭐⭐⭐</option>
@@ -249,26 +244,25 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="review-comment">Отзыв *</label>
-                    <textarea id="review-comment" placeholder="Напишите ваш отзыв" rows="4" required></textarea>
+                    <textarea id="review-comment" placeholder="Напишите ваш отзыв" rows="4"></textarea>
                 </div>
-                <button type="submit">Отправить</button>
-            </form>
+                <button type="submit" class="send-review-button">Отправить отзыв</button>
+            </div>
             <div id="reviews-list" class="reviews-list">
                 <h4>Отзывы</h4>     
             </div>
         </section>
-            <footer>
-                <h4>ARLogistik-Грузоперевозки по России</h4>
-                    <p>© 2024 Все права защищены</p>
-                <div class="socials">
-                    <button type="button">Facebook</button>
-                    <button type="button">Instagram</button>
-                    <button type="button">Twitter</button>
-                    <button type="button">VK</button>
-                </div>
-            </footer>
     </div>
+    <footer>
+        <h4>ARLogistik-Грузоперевозки по России</h4>
+            <p>© 2024 Все права защищены</p>
+        <div class="socials">
+            <button type="button">Facebook</button>
+            <button type="button">Instagram</button>
+            <button type="button">Twitter</button>
+            <button type="button">VK</button>
+        </div>
+    </footer>
     <script src="./script.js"></script>
     <script src="./navigation.js"></script>
 </body>

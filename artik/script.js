@@ -62,32 +62,6 @@ if (navigator.geolocation) {
     });
 }
 
-const revievForm = document.getElementById('review-form');
-if (revievForm) {
-    revievForm.addEventListener('submit', function(event) {
-    event.preventDefault(); // предотвращаем стандартное поведение формы
-
-    const name = document.getElementById('reviewer-name').value;
-    const rating = document.getElementById('review-rating').value;
-    const comment = document.getElementById('review-comment').value;
-
-    if (name && rating && comment) {
-        const reviewItem = document.createElement('div');
-        reviewItem.classList.add('review-item');
-        reviewItem.innerHTML = `
-            <h5>${name} <span class="review-rating">${'⭐'.repeat(rating)}</span></h5>
-            <p>${comment}</p>
-        `;
-
-        document.getElementById('reviews-list').appendChild(reviewItem);
-
-        // Очистка полей после отправки
-        document.getElementById('reviewer-name').value = '';
-        document.getElementById('review-rating').value = '';
-        document.getElementById('review-comment').value = '';
-    }
-    })
-}
 // document.getElementById('review-form').addEventListener('submit', function(event) {
 //     event.preventDefault(); // предотвращаем стандартное поведение формы
 
@@ -376,7 +350,6 @@ const checkAuthorize = async () => {
         loadProfile();
     } else {
         profileWindow ? profileWindow.style.display = 'none': null;
-        alert('Вы не вошли в аккаунт');
     }
         
     // logoutButton.addEventListener('click', () => {
@@ -387,3 +360,80 @@ const checkAuthorize = async () => {
     // });
 }  
 window.addEventListener('DOMContentLoaded', checkAuthorize)
+
+// Вы не вошли в аккаунт
+const profileButton = document.getElementById('profile-button');
+if (profileButton) {
+    profileButton.addEventListener('click', async () => {
+        const token = window.localStorage.getItem('token');
+        !token ? alert('Вы не вошли в аккаунт') : null;
+    });
+};
+
+// Отправление отзыва 
+const sendReview = document.querySelector('.send-review-button');
+if (sendReview) {
+    sendReview.addEventListener('click', async () => {
+        const token = window.localStorage.getItem('token');
+        const rating = document.getElementById('review-rating').value;
+        const comment = document.getElementById('review-comment').value;
+
+        if (!token) {
+            alert('Для этого действия требуется авторизация')
+        }
+
+        if(!rating || !comment) {
+            alert('Пожалуйста, заполните все поля')
+        }
+
+        const response = await fetch('http://localhost:5000/addreview', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({rating, comment})
+        })
+        const data = await response.json();
+
+        if (data === true) {
+            window.location.reload();
+        }
+
+        console.log(data);
+    });
+};
+
+// Отображение отзыва 
+const outputReviews = async () => {
+    const reviewsList = document.querySelector('.reviews-list');
+
+    const response = await fetch('http://localhost:5000/allreviews', {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    const data = await response.json();
+
+    if (data && data.reviewResult && data.reviewResult.length > 0) {
+        data.reviewResult.forEach(user => {
+            const userReview = document.createElement('div');
+            userReview.className = 'user-review';
+            userReview.innerHTML = `
+                <h3>Имя пользователя - ${user.name}</h3>
+                <div class="review-details">
+                    <p>Рейтинг - ${'⭐'.repeat(user.rating)}</p>
+                    <p>Комментарий - ${user.comment}</p>
+                </div>
+            `;
+            reviewsList.appendChild(userReview);
+         });
+    } else {
+        reviewsList.innerHTML = `<p>Нет отзывов</p>`
+    }
+}
+window.addEventListener('DOMContentLoaded', outputReviews)
+
+
+

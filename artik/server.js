@@ -286,3 +286,65 @@ app.put('/updateuser', async (req, res) => {
         client.release();
     }
 });
+
+// Отправление отзыва
+app.post('/addreview', async (req,res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    const client = await pool.connect();
+
+    const {rating, comment} = req.body;
+
+    if (!token) {
+        return res.status(401).json({message: 'Для этого действия требуется авторизация'})
+    }
+
+    if (!rating || !comment) {
+        return res.status(400).json({message: 'Все поля должны быть заполнены'})
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+
+        const result = await client.query(
+            'INSERT INTO reviews_table (user_id, rating, comment) VALUES ($1, $2, $3) RETURNING review_id', [userId, rating, comment]
+        )
+        const reviewId = result.rows[0].review_id;
+
+        res.status(201).json({
+            message: 'Данные отзыва',
+            reviewId: reviewId
+        });
+    } catch (err) {
+        console.error('Ошибка добавления отзыва из-за ошибки в запросе' + err);
+        res.status(500).send('Ошибка добавления отзыва из-за ошибки в запросе');
+    } finally {
+        client.release();
+    }
+})
+
+// Просмотр всех отзывов
+app.get('/allreviews', async (req,res) => {
+    const client = await pool.connect();
+
+    try {
+        const response = await client.query(
+            `SELECT ut.name, rt.rating, rt.comment
+            FROM users_table AS ut
+            INNER JOIN reviews_table AS rt ON ut.user_id = rt.user_id
+            ORDER BY ut.user_id;
+            `
+        )
+        const result = response.rows;
+
+        res.status(201).json({
+            message: 'Добавленный отзыв',
+            reviewResult: result
+        });
+    } catch (err) {
+        console.error('Ошибка добавления отзыва из-за ошибки в запросе' + err);
+        res.status(500).send('Ошибка добваления отзыва из-за ошибки в запросе');
+    } finally {
+        client.release();
+    }
+});
