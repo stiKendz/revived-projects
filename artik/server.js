@@ -140,8 +140,9 @@ app.post('/login', async (req, res) => {
 // Оформение заказа
 app.post('/addorder', async (req, res) => {
     const client = await pool.connect();
+    const token = req.headers.authorization?.split(' ')[1];
+
     const {
-        user_id,
         company_name,
         contact_name,
         phone,
@@ -153,7 +154,6 @@ app.post('/addorder', async (req, res) => {
     } = req.body;
 
     const orderParams = {
-        user_id,
         company_name,
         contact_name,
         phone,
@@ -164,6 +164,10 @@ app.post('/addorder', async (req, res) => {
         required_transport
     };
 
+    if(!token) {
+        return res.status(401).json({message: 'Для данного действия требуется авторизация'})
+    }
+
     for (let key in orderParams) {
         if (!orderParams[key]) {
             return res.status(400).json({ message: 'Все поля должны быть заполнены' });
@@ -171,9 +175,12 @@ app.post('/addorder', async (req, res) => {
     }
 
     try {
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+
         const result = await client.query(
             'INSERT INTO orders_table (user_id, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING order_id',
-            [user_id, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport]
+            [userId, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport]
         );
         const orderId = result.rows[0].order_id;
         res.status(201).json({
@@ -188,13 +195,21 @@ app.post('/addorder', async (req, res) => {
     }
 });
 
-// получение списка всех заказов
+// Получение списка всех заказов
 app.get('/getorders', async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
     const client = await pool.connect();
 
     try {
+        if(!token) {
+            return res.status(401).json({message: 'Пользователь не авториизован'})
+        }
+        
+        const decodedToken = jwt.verify(token, SECRET_KEY);
+        const userId = decodedToken.userId;
+
         const response = await client.query(
-            'SELECT * FROM orders_table'
+            'SELECT * FROM orders_table WHERE user_id = $1', [userId]
         );
 
         const result = response.rows;
@@ -205,13 +220,13 @@ app.get('/getorders', async (req, res) => {
         });
     } catch (err) {
         console.log(`Ошибка вывода всех заказов: ${err.message}`);
-        res.status(500).json({ message: 'Ошибка вывода всех заказов на стороне запроса' });
+        res.status(500).json({ message: 'Ошибка вывода всех заказов на стороне запроса'});
     } finally {
         client.release();
     }
 });
 
-// вывод информации о пользователе
+// Вывод информации о пользователе
 app.get('/userinfo', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     const client = await pool.connect();
@@ -241,6 +256,7 @@ app.get('/userinfo', async (req, res) => {
     }
 });
 
+// Обновление информации о пользователе
 app.put('/updateuser', async (req, res) => {
     const {name, email} = req.body;
     const token = req.headers.authorization?.split(' ')[1];

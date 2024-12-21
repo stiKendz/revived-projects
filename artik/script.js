@@ -40,20 +40,6 @@ buttons.forEach(button => {
     });
 }); 
 
-//статус заказов
-function notifyUser(message) {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.innerText = message;
-
-    document.body.appendChild(notification);
-    setTimeout(() => {
-        notification.remove();
-    }, 3000); // исчезнет через 3 секунды
-}
-
-// Пример вызова
-notifyUser("Ваш заказ был успешно оформлен!");
 
 // function showLoader() {
 //     document.getElementById('loader').style.display = 'block'; // показать прелоадер
@@ -216,7 +202,8 @@ if( authForm ) {
 const submitOrderButton = document.querySelector('.submit-order');
 if (submitOrderButton) {
     submitOrderButton.addEventListener('click', async () => {
-        const user_id = 1; // Здесь вы можете подставить актуальный ID пользователя
+        const token = window.localStorage.getItem('token')
+
         const company_name = document.querySelector('.company-name-input').value;
         const contact_name = document.querySelector('.contact-name-input').value;
         const phone = document.querySelector('.phone-input').value;
@@ -229,9 +216,10 @@ if (submitOrderButton) {
         const response = await fetch('http://localhost:5000/addorder', {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ user_id, company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport })
+            body: JSON.stringify({ company_name, contact_name, phone, email, cargo_name, cargo_weight, dimensions, required_transport })
         });
 
         const data = await response.json();
@@ -241,9 +229,16 @@ if (submitOrderButton) {
     });
 }
 
+// Вывод всех заказов
 async function fetchAllOrders() {
+    const token = window.localStorage.getItem('token');
+
     const response = await fetch('http://localhost:5000/getorders', {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     });
         
     const data = await response.json();
