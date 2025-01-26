@@ -1,16 +1,20 @@
-const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
-const authModal = document.getElementById('authModal');
-const closeAuthModalButton = authModal.querySelector('.close');
-    
 
-const registerModal = document.getElementById('registerModal');
-const toggleToRegisterButton = document.getElementById('toggleToRegister');
-const closeRegisterModalButton = registerModal.querySelector('.close');
-const loginButton = document.getElementById('log-in-button');
-const submitRegistration = document.getElementById('submitRegistration');
-const openAuthModal = document.getElementById('openAuthModal');
-const userProfile = document.getElementById('userProfile');
-const addCardButton = document.getElementById('addCardButton');
+
+    const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
+    const authModal = document.getElementById('authModal');
+    const closeAuthModalButton = authModal.querySelector('.close');
+    
+    const registerModal = document.getElementById('registerModal');
+    const toggleToRegisterButton = document.getElementById('toggleToRegister');
+    const closeRegisterModalButton = registerModal.querySelector('.close');
+
+    const loginButton = document.getElementById('log-in-button');
+
+    const submitRegistration = document.getElementById('submitRegistration');
+
+    const openAuthModal = document.getElementById('openAuthModal');
+    const userProfile = document.getElementById('userProfile');
+    const addCardButton = document.getElementById('addCardButton');
 
     // // Открытие и закрытие модальных окон    
     // openAuthModalButtons.forEach(button => {

@@ -41,7 +41,7 @@ button.in-nav:focus{
   transition: 0.15s ease-in;
 }
 
-header {
+.header-div {
     position: fixed; 
     top: 0; 
     left: 0; 
@@ -272,7 +272,7 @@ h1 {
 
 .text-float-block p {
     font-size: 1.6rem; 
-    line-height: 1.5; /
+    line-height: 1.5; 
 }
 
 .circle2 {
@@ -376,7 +376,7 @@ h1 {
     font-size: 1.2rem;
 }
 
-footer {
+.footer-div {
     background-color:#96555b; 
     color: #fff;
     padding: 40px 20px; 
