@@ -1,5 +1,4 @@
 
-
     const openAuthModalButtons = document.querySelectorAll('#openAuthModal, #openAuthModal2');
     const authModal = document.getElementById('authModal');
     const closeAuthModalButton = authModal.querySelector('.close');
@@ -310,6 +309,8 @@
             registerModal.style.display = 'none';
         }
     };
+
+    
 
 
 

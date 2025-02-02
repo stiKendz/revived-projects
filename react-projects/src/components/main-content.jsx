@@ -1,18 +1,34 @@
 import '../styles/styles.css'
 
 export default function MainContentComponent() {
+    function closeAuthModal() {
+        const authModal = document.getElementById('authModal');
+        authModal.style.display = 'none';
+    }
+    function openRegistrationModal() {
+        const authModal = document.getElementById('authModal');
+        authModal.style.display = 'none';
+
+        const registrationModal = document.getElementById('registerModal');
+        registrationModal.style.display = 'block';
+    }
+    function closeRegistrationModal() {
+        const registrationModal = document.getElementById('registerModal');
+        registrationModal.style.display = 'none';
+    }
+
     return (
         <>
             <div id="authModal" className="modal">
                 <div className="modal-content">
-                    <span className="close">&times;</span>
+                    <span className="close" onClick={ closeAuthModal }>&times;</span>
                     <h2 id="modalTitle">Вход</h2>
                     <form id="authForm">
                         <input type="text" id="username" placeholder="Email пользователя" required />
                         <input type="password" id="password" placeholder="Пароль" required />
                         <button id="log-in-button" type="button">Подтвердить</button>
                         <p id="toggleAuthText">У вас нет аккаунта?
-                            <button type="button" className="to-registration-button in-nav">
+                            <button type="button" className="to-registration-button in-nav" onClick={ openRegistrationModal }>
                                 Зарегистрироваться
                             </button>
                         </p>
@@ -21,7 +37,7 @@ export default function MainContentComponent() {
             </div>
             <div id="registerModal" className="modal">
                 <div className="modal-content">
-                    <span className="close">&times;</span>
+                    <span className="close" onClick={ closeRegistrationModal }>&times;</span>
                     <h2>Регистрация</h2>
                     <form id="registerForm">
                         <input type="text" id="regUsername" placeholder="Имя пользователя" required />

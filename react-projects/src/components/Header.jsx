@@ -2,6 +2,10 @@ import '../styles/styles.css'
 import logoImage from '../images/logo.png'
 
 export default function HeaderComponent() {
+    function openAuthModal() {
+        const authModal = document.getElementById('authModal');
+        authModal.style.display = 'block';
+    }
     return (
         <>
             <div className='header-div'>
@@ -15,7 +19,7 @@ export default function HeaderComponent() {
                             <li><button type="button" className="services-button in-nav">Услуги</button></li>
                             <li id="nav-catalog"><button type="button" className="catalogue-button in-nav">Каталог</button></li>
                             <li><button type="button" className="contact-button in-nav">Контакты</button></li>
-                            <li><button type="button" className="login-button in-nav">Вход</button></li>
+                            <li><button type="button" className="login-button in-nav" onClick={ openAuthModal }>Вход</button></li>
                             <li id="userProfile" style={{display:'none'}}>
                                 <button type="button" className="profile-button in-nav">Профиль</button>
                             </li>

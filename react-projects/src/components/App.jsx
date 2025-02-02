@@ -5,9 +5,11 @@ import MainContentComponent from './main-content.jsx'
 function App() {
   return (
     <>
+    <div className='main-content'>
       <HeaderComponent />
       <MainContentComponent />
       <FooterComponent />
+    </div>
     </>
   )
 }
