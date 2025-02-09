@@ -1,5 +1,6 @@
 import '../styles/styles.css'
 import CardsComponent from '../components/Cards'
+import ProfileComponent from './Profile.jsx';
 import CheckAutorizeComponent from './CheckAutorize.jsx'
 
 export default function MainContentComponent() {
@@ -20,6 +21,58 @@ export default function MainContentComponent() {
         registrationModal.style.display = 'none';
     }
 
+    async function registrationButton() {
+        const name = document.getElementById('regUsername').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
+
+        const response = await fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({name, email, password})
+        })
+        const data = await response.json();
+
+        if (response.ok) {
+            closeRegistrationModal();
+            return alert('Вы успешно зарегистрировались');
+        } else {
+            return alert('Ошибка при регистрации')
+        }
+
+        console.log(data); // ??
+    }
+
+    async function loginButton() {
+        const email = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const response = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({email, password})
+        })
+        const data = await response.json();
+
+        if (response.ok) {
+            window.localStorage.setItem('token', data.token);
+            window.localStorage.setItem('email', data.email);
+            window.localStorage.setItem('role', data.role);
+
+            alert('Вы успешно вошли в аккаунт')
+        } else {
+            alert('Ошика при входе в аккаунт')
+        }
+
+        closeAuthModal();
+        loadProfile();
+        console.log(data)
+    }
+
     return (
         <>
             <div id="authModal" className="modal">
@@ -29,9 +82,9 @@ export default function MainContentComponent() {
                     <form id="authForm">
                         <input type="text" id="username" placeholder="Email пользователя" required />
                         <input type="password" id="password" placeholder="Пароль" required />
-                        <button id="log-in-button" type="button">Подтвердить</button>
+                        <button id="log-in-button" onClick={loginButton} type="button">Подтвердить</button>
                         <p id="toggleAuthText">У вас нет аккаунта?
-                            <button type="button" className="to-registration-button in-nav" onClick={ openRegistrationModal }>
+                            <button type="button" onClick={ openRegistrationModal } className="to-registration-button in-nav">
                                 Зарегистрироваться
                             </button>
                         </p>
@@ -46,31 +99,11 @@ export default function MainContentComponent() {
                         <input type="text" id="regUsername" placeholder="Имя пользователя" required />
                         <input type="email" id="regEmail" placeholder="Email" required />
                         <input type="password" id="regPassword" placeholder="Пароль" required />
-                        <button type="submit" id="submitRegistration" className="registraiton-button in-nav">Зарегистрироваться</button>
+                        <button type="submit" onClick={registrationButton} id="submitRegistration" className="registraiton-button in-nav">Зарегистрироваться</button>
                     </form>
                 </div>
             </div>
-            <div className="container" id="profile" style={{display: 'none'}}>
-                <h2>Профиль пользователя</h2>
-                <p>Добро пожаловать, <span id="profileUsername"></span>!</p>
-                <div className="user-name-output"></div>
-                <input type="text" id="user-name" placeholder="Измените ваше имя" />
-                <br></br>
-                <div className="user-surname-output"></div>
-                <input type="text" id="user-surname" placeholder="Измените вашу фамилию" />
-                <br></br>
-                <div className="user-email-output"></div>
-                <input type="email" id="user-email" placeholder="Измените вашу электронную почту" />
-                <br></br>
-                <div className="about-me-output"></div>
-                <textarea id="about-me" placeholder="Измените информацию о себе"></textarea>
-                <br></br>
-                <div className="phone-number-output"></div>
-                <input type="text" id="phone-number" placeholder="Измените свой номер телефона" />
-                <br></br>
-                <button id="saveProfile">Сохранить профиль</button>
-                <button id="logoutButton">Выйти</button>
-            </div>
+            {/* <ProfileComponent /> */}
             <section>
                 <div className="content">
                     <div className="text-block">
@@ -89,6 +122,7 @@ export default function MainContentComponent() {
                         />
                     </div>
                 </div>
+                <CheckAutorizeComponent token={window.localStorage.getItem('token')}/>
                 <hr className="divider" />
                 <div className="description">
                     <h2>WeddingBox</h2>
@@ -152,7 +186,6 @@ export default function MainContentComponent() {
                         <h3>Собирай деньги и наблюдай за процессом</h3>
                     </div>
                 </div>
-                <CheckAutorizeComponent token={window.localStorage.getItem('token')}/>
                 {/* <CardsComponent /> */}
                 <div id="paymentModal" className="modal" style={{ display: 'none' }}>
                     <div className="modal-content">
