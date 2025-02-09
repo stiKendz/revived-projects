@@ -1,6 +1,9 @@
 import '../styles/styles.css'
+import CardsComponent from '../components/Cards'
+import CheckAutorizeComponent from './CheckAutorize.jsx'
 
 export default function MainContentComponent() {
+
     function closeAuthModal() {
         const authModal = document.getElementById('authModal');
         authModal.style.display = 'none';
@@ -149,27 +152,8 @@ export default function MainContentComponent() {
                         <h3>Собирай деньги и наблюдай за процессом</h3>
                     </div>
                 </div>
-                <div id="catalog" className="catalog">
-                    <h2>Каталог WeddingBox</h2>
-                    <button id="createCardButton" className="create-card-button">Создать карточку</button>
-                    <button id="showCardButton" className="show-card-button">Показать карточки</button>
-                    <pre className="card-container"></pre>
-                </div>
-                <div id="modal" className="modal">
-                    <div className="modal-content">
-                        <span className="close-button">&times;</span>
-                        <h2>Создать карточку</h2>
-                        <label htmlFor="cardTitle">Название товара:</label>
-                        <input type="text" id="cardTitle" placeholder="Введите название товара" required />
-                        <label htmlFor="cardPrice">Цена товара:</label>
-                        <input type="text" id="cardPrice" placeholder="Введите цену товара" required />
-                        <label htmlFor="cardImageUrl">Описание товара:</label>
-                        <input type="text" id="cardText" placeholder="Введите краткое описание товара" required />
-                        <label htmlFor="cardImageUrl">URL изображения:</label>
-                        <input type="text" id="cardImageUrl" placeholder="Введите URL изображения" required />
-                        <button id="addCardButton">Добавить карточку</button>
-                    </div>
-                </div>
+                <CheckAutorizeComponent token={window.localStorage.getItem('token')}/>
+                {/* <CardsComponent /> */}
                 <div id="paymentModal" className="modal" style={{ display: 'none' }}>
                     <div className="modal-content">
                         <span className="close-button">&times;</span>
