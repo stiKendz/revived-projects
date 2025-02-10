@@ -20,6 +20,12 @@ export default function CardsComponent() {
         });
         const data = await response.json();
 
+        if(response.ok) {
+            alert('Карточка успешно добавлена')
+        } else {
+            alert('Не удалось добавить карточку')
+        }
+
         console.log(data)
     }
 
@@ -38,8 +44,6 @@ export default function CardsComponent() {
 
         if (data && data.card && data.cards.length > 0) {
             setCards(data.cards)
-        } else if (!token) {
-            cardsContainer.innerHTML = `<p>Нет доступных карточек</p>`
         } else {
             setCards([]);
             cardsContainer.innerHTML = `<p>Нет доступных карточек</p>`

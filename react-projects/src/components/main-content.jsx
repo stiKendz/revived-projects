@@ -37,12 +37,13 @@ export default function MainContentComponent() {
 
         if (response.ok) {
             closeRegistrationModal();
-            return alert('Вы успешно зарегистрировались');
+            alert('Вы успешно зарегистрировались'); // решить проблему с алертом при ошибке в поле ввода
+            window.location.reaload();
         } else {
-            return alert('Ошибка при регистрации')
+            alert('Ошибка при регистрации')
         }
 
-        console.log(data); // ??
+        console.log(data);
     }
 
     async function loginButton() {
@@ -103,7 +104,6 @@ export default function MainContentComponent() {
                     </form>
                 </div>
             </div>
-            {/* <ProfileComponent /> */}
             <section>
                 <div className="content">
                     <div className="text-block">
@@ -186,7 +186,6 @@ export default function MainContentComponent() {
                         <h3>Собирай деньги и наблюдай за процессом</h3>
                     </div>
                 </div>
-                {/* <CardsComponent /> */}
                 <div id="paymentModal" className="modal" style={{ display: 'none' }}>
                     <div className="modal-content">
                         <span className="close-button">&times;</span>
